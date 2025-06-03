@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <title>Create Finance | Fast Forward</title>
+</head>
+<body>
+    @extends("main.layout")
+
+    @section("content")
+        <section>
+            <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
+                <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
+                    <h3 class="font-semibold text-2xl">FINANCE DETAILS</h3>
+                </div>
+                <div class="py-5">
+                    <form action="#" class="space-y-6">
+                        <!-- Personal Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 px-5">
+                            <div>
+                                <label for="finance-name" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Finance Name</label>
+                                <input type="text" id="finance-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Email</label>
+                                <input type="email" id="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                            </div>
+                            <div>
+                                <label for="modile" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Mobile</label>
+                                <input type="number" id="modile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                            </div>
+                            <div>
+                                <label for="whatsapp-number" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Whatsapp Number</label>
+                                <input type="number" id="whatsapp-number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                            </div>
+                        </div>
+
+                        <!-- Credit Info -->
+                        <div class="pt-4">
+                            <h3 class="font-semibold text-2xl uppercase border-b mb-5 border-gray-200 px-5 py-3">Credit Info</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 px-5">
+                                <div>
+                                    <label for="opening-balance" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Opening Balance</label>
+                                    <input type="text" id="opening-balance" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-2 h-fit self-end">
+                                    <label for="hs-radio-in-form" class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="radio" name="hs-radio-in-form" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-in-form">
+                                        <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">To Pay</span>
+                                    </label>
+
+                                    <label for="hs-radio-checked-in-form" class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                                        <input type="radio" name="hs-radio-in-form" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-checked-in-form" checked="">
+                                        <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">To Receive</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-10 px-5 flex gap-5">
+                            <button type="submit" class="w-fit bg-[#0084ff] text-white py-2 px-12 rounded-md hover:bg-[#006eff] transition cursor-pointer">
+                                Submit
+                            </button>
+                            <button class="py-2 px-12 w-fit inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-pointer">
+                                <a href="/main/contacts/customers">Close</a>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    @endsection
+</body>
+</html>

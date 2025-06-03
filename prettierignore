@@ -1,0 +1,12 @@
+# .prettierignore
+/node_modules
+/public
+/storage
+/vendor
+*.lock
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.ico
+

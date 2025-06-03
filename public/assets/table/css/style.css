@@ -1,0 +1,82 @@
+/* THIS IS CUSTOMM CSS FOR ALL TABLES */
+
+#myTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#myTable th {
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    text-transform: capitalize;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border: solid 1.8px #d9d9d9;
+}
+
+#myTable td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1.8px solid #d9d9d9;
+    color: #000;
+    font-weight: 400;
+    font-size: 13.5px;
+}
+
+#myTable tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#myTable tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Custom Scrollbar for table (if needed) */
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Select Entries Custom Css Start */
+div.dt-container select.dt-input {
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    padding: 2px 6px;
+    background-color: transparent;
+    color: inherit;
+}
+/* Select Entries Custom Css End */
+
+/* Search Box Custom Css Start */
+div.dt-container .dt-search input {
+    width: 300px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: transparent;
+    color: inherit;
+    margin: 0 8px;
+}
+
+div.dt-container .dt-search label {
+    font-weight: bold;
+    color: #8a8a8a;
+}
+/* Search Box Custom Css End */
