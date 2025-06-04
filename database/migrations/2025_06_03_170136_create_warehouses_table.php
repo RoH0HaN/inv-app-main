@@ -28,6 +28,9 @@ return new class extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            // -- Indexes for faster querying
+            $table->index('created_by_id');
+
             $table->timestamps();
         });
     }

@@ -11,25 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('outlets', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
 
-            $table->string('organization_logo', 100);
-            $table->string('organization_name', 50);
-            $table->string('mobile', 12);
-            $table->string('tax_number', 50); // for GST-IN Number
-            $table->string('alternative_mobile', 12);
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
             $table->string('email', 50)->unique();
-            $table->string('address', 255);
+            $table->string('mobile', 12)->unique();
+            $table->string('whatsapp_number', 12);
+            $table->string('address', 100);
+            $table->string('tax_number', 50)->unique();
+            $table->string('pan_number', 50)->unique();
 
-            // -- for GST Bills
-            $table->string('invoice_prefix_gst', 30);
-            $table->string('invoice_number_gst', 100);
-            // -- for non GST Bills
-            $table->string('invoice_prefix_ngst', 30);
-            $table->string('invoice_number_ngst', 100);
-
-            // -- to identify which warehouse this outlet belongs to, foreign key to warehouse table added
+            // -- to identify the warehouse of the supplier, foreign key to warehouses table added
             $table->unsignedBigInteger('warehouse_id');
             $table->foreign('warehouse_id')
                 ->references('id')->on('warehouses')
@@ -39,8 +33,8 @@ return new class extends Migration
             $table->unsignedBigInteger('created_by_id'); 
             $table->foreign('created_by_id')
                 ->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-
+                ->onUpdate('cascade')->onDelete('cascade');  
+                
             // -- Indexes for faster querying
             $table->index('created_by_id');
             $table->index('warehouse_id');
@@ -54,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('outlets');
+        Schema::dropIfExists('suppliers');
     }
 };
