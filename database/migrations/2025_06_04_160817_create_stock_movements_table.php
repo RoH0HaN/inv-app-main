@@ -55,7 +55,7 @@ return new class extends Migration
             $table->string('location_to_type', 20)->nullable(); // 'warehouse', 'outlet', 'supplier', 'customer'
             
             // Reason for movement (e.g., "damaged", "return", etc.)
-            $table->text('reason')->nullable();
+            $table->string('reason',255)->nullable();
             
             // Audit fields
             $table->unsignedBigInteger('created_by_id');
