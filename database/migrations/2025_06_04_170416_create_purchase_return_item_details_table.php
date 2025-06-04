@@ -22,17 +22,10 @@ return new class extends Migration
 
             // Stock reference
             $table->unsignedBigInteger('stock_id');
-            $table->foreign('stock_id')
-                ->references('id')->on('batch_stocks')
-                ->onDelete('cascade')->onUpdate('cascade');
-
-            $table->integer('quantity');
-
-            
             $table->enum('stock_type',['batch', 'imei_serial']);
-
             $table->string('imei_serial_number', 50);
 
+            $table->integer('quantity');
             $table->double('purchase_price');
 
             // indexes for faster querying
