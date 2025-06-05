@@ -48,7 +48,7 @@
           <div class="mb-6">
             <div class="flex flex-wrap justify-between items-center gap-2">
               <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
-              <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500" href="/admin/forgotpassword">Forgot password?</a>
+              <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500" href="{{ route('admin.forgetPassword') }}">Forget password?</a>
             </div>
             <div class="relative">
               <input type="password" id="password" name="password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required aria-describedby="password-error">

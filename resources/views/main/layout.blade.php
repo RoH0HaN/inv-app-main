@@ -17,7 +17,7 @@
         <nav class="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
             <!-- Logo Start (Big Size Screen) -->
             <div class="me-5 lg:me-0 lg:hidden">
-                 <a class="flex justify-between items-center gap-3" href="/main/dashboard">
+                 <a class="flex justify-between items-center gap-3" href="{{ route('dashboard') }}">
                     <div class="w-8 h-8 aspect-square">
                         <img src="/assets/sidebar/inv-logo.png" />
                     </div>
@@ -109,7 +109,8 @@
 
                             <div class="flex flex-col items-center">
                                 <span class="font-bold text-[14.5px]">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
-                                <span>Admin</span>
+                                <span>{{ strtoupper(Auth::user()->role)
+                                }}</span>
                             </div>
                         </div>
 
@@ -117,7 +118,7 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-contacts">
                             <div class="py-3 px-5 bg-gray-100 rounded-t-lg dark:bg-neutral-700">
                                 <p class="text-sm text-gray-500 dark:text-neutral-500">Signed in as</p>
-                                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">admin@admin.com</p>
+                                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">{{ Auth::user()->email }}</p>
                             </div>
                             <div class="p-1.5 space-y-0.5">
                                 <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
@@ -126,7 +127,7 @@
                                     Profile
                                 </a>
                                 <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                    href="#">
+                                    href="{{ route('admin.logout') }}">
                                     <img src="/assets/sidebar/logout.svg" alt="">
                                     Logout
                                 </a>
@@ -176,7 +177,7 @@
         <div class="relative flex flex-col h-full max-h-full">
             <div class="px-6 py-[11px] flex items-center border-b border-gray-400">
                 <!-- Logo -->
-                <a class="flex justify-between items-center gap-3" href="/main/dashboard">
+                <a class="flex justify-between items-center gap-3" href="{{ route('dashboard') }}">
                     <div class="w-10 h-10">
                         <img src="/assets/sidebar/inv-logo.png" />
                     </div>
@@ -193,7 +194,7 @@
                     <ul class="flex flex-col space-y-1">
                         <li class="mt-3">
                             <a class="flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100"
-                                href="/main/dashboard/dashboard">
+                                href="{{ route('dashboard') }}">
                                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -237,13 +238,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/customers">
+                                            href="{{ route('contacts.customers') }}">
                                             Customers
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/suppliers">
+                                            href="{{ route('contacts.suppliers') }}">
                                             Suppliers
                                         </a>
                                     </li>
@@ -453,31 +454,31 @@
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/paymentout">
+                                            href="{{ route('contacts.paymentOut') }}">
                                             Unpaid Purchase Bills
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/supplierpayment">
+                                            href="{{ route('contacts.supplierPayment') }}">
                                             Supplier Payment
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/supplierpaymenthistory">
+                                            href="{{ route('contacts.supplierPaymentHistory') }}">
                                             Supplier Payment History
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/createcreditnote">
+                                            href="{{ route('contacts.createCreditNote') }}">
                                             Credit Note Entry
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/contacts/createdebitnote">
+                                            href="{{ route('contacts.createDebitNote') }}">
                                             Debit Note Entry
                                         </a>
                                     </li>
@@ -561,19 +562,19 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/warehouse/warehouseslist">
+                                            href="{{ route('warehouse.warehousesList') }}">
                                             Warehouses
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/warehouse/outletslist">
+                                            href="{{ route('warehouse.outletsList') }}">
                                             Outlets
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/warehouse/stocktransferlist">
+                                            href="{{ route('warehouse.stockTransferList') }}">
                                             Stock Transfer
                                         </a>
                                     </li>
@@ -777,7 +778,7 @@
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/users/userslist">
+                                            href="{{ route('users.usersList') }}">
                                             All Users
                                         </a>
                                     </li>

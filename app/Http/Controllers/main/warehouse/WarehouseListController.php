@@ -11,7 +11,12 @@ use Illuminate\Support\Str;
 class WarehouseListController extends Controller
 {
     public function index() {
-        return view('main.warehouse.warehouseslist');
+
+        $warehouses = DB::table('warehouses')->get();
+
+        // TODO: calculate items, available stock, worth(cost)
+
+        return view('main.warehouse.warehouseslist', ['warehouses' => $warehouses]);
     }
 
     public function createWarehouse() {
@@ -34,7 +39,7 @@ class WarehouseListController extends Controller
         ]);
 
         if (!Auth::check()) {
-            return redirect('/admin/login')->with('error', 'You must be logged in to create a warehouse.');
+            return redirect()->route('admin.login')->with('error', 'You must be logged in to create a warehouse.');
         }
 
         // Handling image upload

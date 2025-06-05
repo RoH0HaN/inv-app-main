@@ -21,10 +21,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Contacts'],
-                ['url' => '/main/contacts/suppliers', 'text' => 'Suppliers List'],
-                ['url' => '/main/contacts/supplierpaymenthistory', 'text' => 'Party Payment History']
+                ['url' => route('contacts.suppliers'), 'text' => 'Suppliers List'],
+                ['url' => route('contacts.supplierPaymentHistory'), 'text' => 'Party Payment History']
             ]" />
 
             <!-- Table Start -->

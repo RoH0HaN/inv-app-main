@@ -14,7 +14,7 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Expenses'],
                 ['url' => '/main/expenses/expensetype', 'text' => 'Expense Type List'],
                 ['url' => '/main/expenses/createexpensetype', 'text' => 'Create Expense Type']

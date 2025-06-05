@@ -20,9 +20,9 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Warehouse'],
-                ['url' => '/main/warehouse/warehouseslist', 'text' => 'Warehouse List']
+                ['url' => route('warehouse.warehousesList'), 'text' => 'Warehouse List']
             ]" />
 
             <!-- Table Start -->
@@ -30,7 +30,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">WAREHOUSE LIST</h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/warehouse/createwarehouse" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Warehouse</a>
+                        <a href="{{ route('warehouse.createWarehouse') }}" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Warehouse</a>
                     </button>
                 </div>
                 <div class="px-5 py-5">
@@ -48,8 +48,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach ($warehouses as $warehouse)
                                 <tr>
-                                    <td>John Doe</td>
+                                    <td>{{ $warehouse->organization_name }}</td>
                                     <td>50</td>
                                     <td>2000</td>
                                     <td>45,00000</td>
@@ -75,6 +76,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

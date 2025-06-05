@@ -14,10 +14,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Contacts'],
-                ['url' => '/main/contacts/suppliers', 'text' => 'Supplier List'],
-                ['url' => '/main/contacts/createsupplier', 'text' => 'Create Supplier']
+                ['url' => route('contacts.suppliers'), 'text' => 'Supplier List'],
+                ['url' => route('contacts.createSupplier'), 'text' => 'Create Supplier']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
@@ -106,7 +106,7 @@
                                 Submit
                             </button>
                             <button class="py-2 px-12 w-fit inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-pointer">
-                                <a href="/main/contacts/customers">Close</a>
+                                <a href="{{ route('contacts.customers') }}">Close</a>
                             </button>
                         </div>
                     </form>

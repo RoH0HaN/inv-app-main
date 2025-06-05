@@ -14,10 +14,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Warehouse'],
-                ['url' => '/main/warehouse/warehouseslist', 'text' => 'Warehouse List'],
-                ['url' => '/main/warehouse/createwarehouse', 'text' => 'Create Warehouse']
+                ['url' => route('warehouse.warehousesList'), 'text' => 'Warehouse List'],
+                ['url' => route('warehouse.createWarehouse'), 'text' => 'Create Warehouse']
             ]" />
 
             <!-- For success message -->

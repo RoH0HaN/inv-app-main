@@ -20,9 +20,9 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Warehouse'],
-                ['url' => '/main/warehouse/stocktransferlist', 'text' => 'Stock Transfer List']
+                ['url' => route('warehouse.stockTransferList'), 'text' => 'Stock Transfer List']
             ]" />
 
             <!-- Table Start -->
@@ -30,7 +30,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">STOCK TRANSFER LIST</h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/warehouse/newtransfer" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">New Transfer</a>
+                        <a href="{{ route('warehouse.newTransfer') }}" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">New Transfer</a>
                     </button>
                 </div>
 

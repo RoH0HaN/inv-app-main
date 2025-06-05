@@ -20,7 +20,7 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
                 ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
                 ['url' => '/main/customer/returnamounthistory', 'text' => 'Return Amount History']

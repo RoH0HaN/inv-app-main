@@ -18,10 +18,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Warehouse'],
-                ['url' => '/main/warehouse/stocktransferlist', 'text' => 'Stock Transfer List'],
-                ['url' => '/main/warehouse/newtransfer', 'text' => 'New Transfer']
+                ['url' =>  route('warehouse.stockTransferList'), 'text' => 'Stock Transfer List'],
+                ['url' =>  route('warehouse.newTransfer'), 'text' => 'New Transfer']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
@@ -312,7 +312,7 @@
             // Close button
             $('#closeBtn').on('click', function() {
                 if (confirm('Are you sure you want to close without saving?')) {
-                    window.location.href = '/main/warehouse/stocktransferlist';
+                    window.location.href = "{{ route('warehouse.stockTransferList') }}";
                 }
             });
 

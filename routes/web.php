@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\admin\AdminLoginController;
-use App\Http\Controllers\admin\AdminForgotPasswordController;
+use App\Http\Controllers\admin\AdminForgetPasswordController;
 
 use App\Http\Controllers\main\DashboardController;
 use App\Http\Controllers\main\CustomerController;
@@ -59,28 +59,40 @@ use App\Http\Controllers\main\settings\TcsTdsRatesController;
 use App\Http\Controllers\main\settings\PaymentOptionController;
 use App\Http\Controllers\main\settings\FinanceController;
 
+// MIDDLEWARE
+use App\Http\Middleware\VerifyLogin;
+
 // ADMIN ROUTE
-Route::get("/", [AdminLoginController::class, "index"]);
-Route::get("/admin/forgotpassword", [AdminForgotPasswordController::class, "forgotPassword"])->name("admin/forgotpassword");
-Route::post("/admin/login", [AdminLoginController::class, "login"])->name("admin.login");
+Route::controller(AdminLoginController::class)->group(function () {
+    Route::get("/", "index")->name('login');
+    Route::post("/admin/login", "login")->name("admin.login");
+    Route::get("/admin/logout", "logout")->name("admin.logout");
+});
+Route::get("/admin/forget-password", [AdminForgetPasswordController::class, "forgetPassword"])->name("admin.forgetPassword");
 
 // DASHBOARD ROUTE
-Route::get("/main/dashboard/dashboard", [DashboardController::class, "index"])->name("main/dashboard/dashboard");
+Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
 
-// CONTACTS => CUSTOMERS ROUTE
-Route::get("/main/contacts/customers", [CustomerController::class, "index"])->name("main/contacts/customers");
-Route::get("/main/contacts/createcustomer", [CustomerController::class, "createCustomer"])->name("main/contacts/createcustomer");
+Route::prefix("contacts")->name("contacts.")->middleware(VerifyLogin::class)->group(function () {
+    // CONTACTS => CUSTOMERS ROUTE
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get("/customers", "index")->name("customers");
+        Route::get("/create-customer", "createCustomer")->name("createCustomer");
+    });
 
-// CONTACTS => SUPPLIERS ROUTE
-Route::get("/main/contacts/suppliers", [SupplierController::class, "index"])->name("main/contacts/suppliers");
-Route::get("/main/contacts/createsupplier", [SupplierController::class, "createSupplier"])->name("main/contacts/createsupplier");
-Route::get("/main/contacts/supplierpayment", [SupplierController::class, "supplierPayment"])->name("main/contacts/supplierpayment");
-Route::get("/main/contacts/paymentout", [SupplierController::class, "paymentOut"])->name("main/contacts/paymentout");
-Route::get("/main/contacts/supplierpaymenthistory", [SupplierController::class, "supplierPaymentHistory"])->name("main/contacts/supplierpaymenthistory");
-Route::get("/main/contacts/creditnotehistory", [SupplierController::class, "creditNoteHistory"])->name("main/contacts/creditnotehistory");
-Route::get("/main/contacts/debitnotehistory", [SupplierController::class, "debitNoteHistory"])->name("main/contacts/debitnotehistory");
-Route::get("/main/contacts/createcreditnote", [SupplierController::class, "createCreditNote"])->name("main/contacts/createcreditnote");
-Route::get("/main/contacts/createdebitnote", [SupplierController::class, "createDebitNote"])->name("main/contacts/createdebitnote");
+    // CONTACTS => SUPPLIERS ROUTE
+    Route::controller(SupplierController::class)->group(function () {
+        Route::get("/suppliers", "index")->name("suppliers");
+        Route::get("/create-supplier", "createSupplier")->name("createSupplier");
+        Route::get("/supplier-payment", "supplierPayment")->name("supplierPayment");
+        Route::get("/payment-out", "paymentOut")->name("paymentOut");
+        Route::get("/supplier-payment-history", "supplierPaymentHistory")->name("supplierPaymentHistory");
+        Route::get("/credit-note-history", "creditNoteHistory")->name("creditNoteHistory");
+        Route::get("/debit-note-history", "debitNoteHistory")->name("debitNoteHistory");
+        Route::get("/create-credit-note", "createCreditNote")->name("createCreditNote");
+        Route::get("/create-debit-note", "createDebitNote")->name("createDebitNote");
+    });
+});
 
 // SALE => INVOICES ROUTE
 Route::get("/main/sale/invoices", [InvoicesController::class, "index"])->name("main/sale/invoices");
@@ -136,18 +148,26 @@ Route::post("/main/items/save-category-to-database", [CategoryListController::cl
 Route::get("/main/items/brandlist", [BrandListController::class, "index"])->name("main/items/brandlist");
 Route::get("/main/items/createbrand", [BrandListController::class, "createBrand"])->name("main/items/createbrand");
 
-// WAREHOUSE => WAREHOUSE LIST ROUTE
-Route::get("/main/warehouse/warehouseslist", [WarehouseListController::class, "index"])->name("main/warehouse/warehouseslist");
-Route::get("/main/warehouse/createwarehouse", [WarehouseListController::class, "createWarehouse"])->name("main/warehouse/createwarehouse");
-Route::post("/main/warehouse/save-warehouse-to-database", [WarehouseListController::class, "saveWarehouseToDatabase"])->name('main.warehouse.saveWarehouseToDatabase');
+Route::prefix("warehouse")->name("warehouse.")->middleware(VerifyLogin::class)->group(function () {
+    // WAREHOUSE => WAREHOUSE LIST ROUTE
+    Route::controller(WarehouseListController::class)->group(function () {
+        Route::get("/warehouses-list", "index")->name("warehousesList");
+        Route::get("/create-warehouse", "createWarehouse")->name("createWarehouse");
+        Route::post("/save-warehouse-to-database", "saveWarehouseToDatabase")->name('saveWarehouseToDatabase');
+    });
 
-// WAREHOUSE => OUTLET LIST ROUTE
-Route::get("/main/warehouse/outletslist", [OutletListController::class, "index"])->name("main/warehouse/outletslist");
-Route::get("/main/warehouse/createoutlet", [OutletListController::class, "createOutlet"])->name("main/warehouse/createoutlet");
+    // WAREHOUSE => OUTLET LIST ROUTE
+    Route::controller(OutletListController::class)->group(function () {
+        Route::get("/outlets-list", "index")->name("outletsList");
+        Route::get("/create-outlet", "createOutlet")->name("createOutlet");
+    });
 
-// WAREHOUSE => STOCK TRANSFER LIST ROUTE
-Route::get("/main/warehouse/stocktransferlist", [StockTransferListController::class, "index"])->name("main/warehouse/stocktransferlist");
-Route::get("/main/warehouse/newtransfer", [StockTransferListController::class, "newTransfer"])->name("main/warehouse/newtransfer");
+    // WAREHOUSE => STOCK TRANSFER LIST ROUTE
+    Route::controller(StockTransferListController::class)->group(function () {
+        Route::get("/stock-transfer-list", "index")->name("stockTransferList");
+        Route::get("/new-transfer", "newTransfer")->name("newTransfer");
+    });
+});
 
 // REPORTS => BILL WISE PROFIT ROUTE
 Route::get("/main/reports/billwiseprofit", [BillWiseProfitController::class, "index"])->name("main/reports/billwiseprofit");
@@ -194,9 +214,13 @@ Route::get("/main/cashandbank/account-details", [BanksController::class, "viewAc
 Route::get("/main/users/profile", [ProfileController::class, "index"])->name("main/users/profile");
 
 // USERS => ALL USERS ROUTE
-Route::get("/main/users/userslist", [AllUsersController::class, "index"])->name("main/users/userslist");
-Route::get("/main/users/createuser", [AllUsersController::class, "createUser"])->name("main/users/createuser");
-Route::post("/main/users/save-user-to-database", [AllUsersController::class, "saveUserToDatabase"])->name('main.users.saveUserToDatabase');
+Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(function () {
+    Route::controller(AllUsersController::class)->group(function () {
+        Route::get('/users-list', 'index')->name('usersList');
+        Route::get('/create-user', 'createUser')->name('createUser');
+        Route::post('/save-user-to-database', 'saveUserToDatabase')->name('saveUserToDatabase');
+    });
+});
 
 // USERS => EMPLOYEE ROUTE
 Route::get("/main/users/employeelist", [EmployeeController::class, "index"])->name("main/users/employeelist");

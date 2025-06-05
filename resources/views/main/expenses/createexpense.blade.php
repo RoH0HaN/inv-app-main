@@ -18,10 +18,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Contacts'],
-                ['url' => '/main/contacts/suppliers', 'text' => 'Suppliers List'],
-                ['url' => '/main/contacts/supplierpayment', 'text' => 'Supplier Payment']
+                ['url' => route('contacts.suppliers'), 'text' => 'Suppliers List'],
+                ['url' => route(contacts.supplierPayment, 'text' => 'Supplier Payment']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

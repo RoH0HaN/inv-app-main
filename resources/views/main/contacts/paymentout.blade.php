@@ -20,10 +20,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Contacts'],
-                ['url' => '/main/contacts/suppliers', 'text' => 'Suppliers List'],
-                ['url' => '/main/contacts/paymentout', 'text' => 'Unpaid Purchase Bills']
+                ['url' => route('contacts.suppliers'), 'text' => 'Suppliers List'],
+                ['url' => route(contacts.paymentOut), 'text' => 'Unpaid Purchase Bills']
             ]" />
 
             <!-- Table Start -->
@@ -67,7 +67,7 @@
                                         <td>2025-04-16 10:23 AM</td>
                                         <td>
                                         <div class="relative inline-flex">
-                                            <a href="/main/contacts/supplierpayment" type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-xs rounded-full bg-[#abd7ff] text-[#0084ff] hover:bg-[#9bc3ff] focus:outline-hidden focus:bg-[#9bc3ff] disabled:opacity-50 disabled:pointer-events-none cursor-pointer font-bold uppercase">
+                                            <a href="{{ route('contacts.supplierPayment') }}" type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-xs rounded-full bg-[#abd7ff] text-[#0084ff] hover:bg-[#9bc3ff] focus:outline-hidden focus:bg-[#9bc3ff] disabled:opacity-50 disabled:pointer-events-none cursor-pointer font-bold uppercase">
                                                 Pay Now
                                             </a>
                                         </div>

@@ -9,7 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class AdminLoginController extends Controller
 {
     public function index() {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('welcome');
+    }
+    
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
     public function login(Request $req) {
@@ -21,7 +30,7 @@ class AdminLoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('main/dashboard/dashboard')->with('success', 'Login successful');
+            return redirect()->route('dashboard')->with('success', 'Login successful');
         }
         return back()->withErrors([
             'email' => 'The provided email do not match our records.',

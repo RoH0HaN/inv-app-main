@@ -34,7 +34,7 @@
                             <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                                 <h3 class="font-semibold text-2xl">OUTLETS</h3>
                                 <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                                    <a href="/main/warehouse/createoutlet" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Outlet</a>
+                                    <a href="{{ route('warehouse.createOutlet') }}" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Outlet</a>
                                 </button>
                             </div>
                             <div class="px-5 py-3 grid lg:grid-cols-2 gap-8">

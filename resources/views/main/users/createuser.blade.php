@@ -14,10 +14,10 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Users'],
-                ['url' => '/main/users/userslist', 'text' => 'Users List'],
-                ['url' => '/main/users/createuser', 'text' => 'Create User']
+                ['url' => route('users.usersList'), 'text' => 'Users List'],
+                ['url' => route('users.createUser'), 'text' => 'Create User']
             ]" />
             <!-- For success message -->
             @if (session('success'))

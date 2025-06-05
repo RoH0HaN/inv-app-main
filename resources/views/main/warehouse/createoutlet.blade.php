@@ -14,11 +14,32 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Warehouse'],
-                ['url' => '/main/warehouse/outletslist', 'text' => 'Outlet List'],
-                ['url' => '/main/warehouse/createoutlet', 'text' => 'Create Outlet']
+                ['url' => route('warehouse.outletsList'), 'text' => 'Outlet List'],
+                ['url' => route('warehouse.createOutlet'), 'text' => 'Create Outlet']
             ]" />
+
+            <!-- For success message -->
+            @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
@@ -34,7 +55,7 @@
                                 <div class="flex gap-5">
                                     <div>
                                         <label class="block">
-                                        <input type="file" accept=".jpg,.jpeg,.gif,.png" class="block w-[90px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
+                                        <input type="file" accept=".jpg,.jpeg,.gif,.png" class="block w-[110px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
                                             file:me-4 file:py-2.5 file:px-4
                                             file:rounded-lg file:border-0
                                             file:text-sm file:font-semibold
@@ -93,7 +114,7 @@
                         </div>
 
                         <!-- Get The Warehouses From Database Start -->
-                        <div class="flex gap-x-20 items-center col-span-3">
+                        <!-- <div class="flex gap-x-20 items-center col-span-3">
                             <div class="flex items-center">
                                 <input type="radio" name="hs-radio-group" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-group-1" checked="">
                                 <label for="hs-radio-group-1" class="text-base font-bold text-black ms-2 dark:text-neutral-400">Warehouse One</label>
@@ -103,7 +124,16 @@
                                 <input type="radio" name="hs-radio-group" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-group-2">
                                 <label for="hs-radio-group-2" class="text-base font-bold text-black ms-2 dark:text-neutral-400">Warehouse Two</label>
                             </div>
+                        </div> -->
+                        <div class="col-span-3">
+                            <label for="warehouse-select" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Select Warehouse</label>
+                            <select id="warehouse-select" name="warehouse" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                @foreach($warehouses as $warehouse)
+                                    <option value="{{ $warehouse->id }}">{{ $warehouse->organization_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
+
                         <!-- Get The Warehouses From Database End -->
 
                         <section class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 max-w-4xl">

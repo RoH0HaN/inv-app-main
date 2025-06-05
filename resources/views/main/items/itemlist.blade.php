@@ -42,7 +42,7 @@
     @section("content")
         <section>
             <x-breadcrumb :links="[
-                ['url' => '/main/dashboard/dashboard', 'text' => 'Home'],
+                ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Item'],
                 ['url' => '/main/items/itemlist', 'text' => 'Item List']
             ]" />

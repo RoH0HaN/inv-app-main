@@ -5,9 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminForgotPasswordController extends Controller
+class AdminForgetPasswordController extends Controller
 {
-    public function forgotPassword() {
+    public function forgetPassword() {
         return view('admin.forgotpassword');
     }
 }
