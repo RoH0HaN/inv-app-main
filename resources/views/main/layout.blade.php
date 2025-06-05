@@ -108,7 +108,7 @@
                             </button>
 
                             <div class="flex flex-col items-center">
-                                <span class="font-bold text-[14.5px]">Issac Hossain</span>
+                                <span class="font-bold text-[14.5px]">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
                                 <span>Admin</span>
                             </div>
                         </div>

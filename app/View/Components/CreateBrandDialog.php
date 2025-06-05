@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 class CreateBrandDialog extends Component
 {
     /**
-     * Create a new component instance.
+     * Create a new component instance.dc
      */
     public function __construct()
     {
