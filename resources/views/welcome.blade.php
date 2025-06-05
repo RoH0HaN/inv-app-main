@@ -26,7 +26,8 @@
         <img src="/assets/admin/login-page.jpg" alt="" class="">
       </div>
       <!-- Form -->
-      <form>
+      <form action="{{ route('admin.login') }}" method="POST">
+        @csrf
         <div class="grid gap-y-4 items-center bg-[#0084ff11] h-full w-full p-5 rounded-r-lg">
           <!-- Form Group -->
           <div>
@@ -66,6 +67,19 @@
       </form>
       <!-- End Form -->
     </div>
+    @if ($errors->any())
+    <div class="mt-4 px-5">
+      <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+        <ul class="list-disc list-inside space-y-1">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+    @endif
+
   </div>
 </div>
 </body>

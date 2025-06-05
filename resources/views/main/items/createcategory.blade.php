@@ -25,16 +25,18 @@
                     <h3 class="font-semibold text-2xl">CATEGORY DETAILS</h3>
                 </div>
                 <div class="py-5">
-                    <form id="" action="#" class="space-y-6">
+                    <form id="" action="{{ route('main.items.saveCategoryToDatabase') }}" method="POST" class="space-y-6">
+                        @csrf
                         <div class="grid gap-y-5 px-5">
                             <div>
                                 <label for="name" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Name</label>
-                                <input type="text" id="name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                <input type="text" id="name" name="category_name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                             </div>
                             <div>
-                                <label for="discription" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Discription</label>
+                                <label for="description" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Description</label>
                                 <textarea 
-                                    id="discription" 
+                                    id="description"
+                                    name="category_description" 
                                     rows="3" 
                                     class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
                                     required

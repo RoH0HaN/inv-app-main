@@ -62,6 +62,7 @@ use App\Http\Controllers\main\settings\FinanceController;
 // ADMIN ROUTE
 Route::get("/", [AdminLoginController::class, "index"]);
 Route::get("/admin/forgotpassword", [AdminForgotPasswordController::class, "forgotPassword"])->name("admin/forgotpassword");
+Route::post("/admin/login", [AdminLoginController::class, "login"])->name("admin.login");
 
 // DASHBOARD ROUTE
 Route::get("/main/dashboard/dashboard", [DashboardController::class, "index"])->name("main/dashboard/dashboard");
@@ -129,6 +130,7 @@ Route::get("/main/items/createitem", [ItemListController::class, "createItem"])-
 // ITEMS => CATEGORY LIST ROUTE
 Route::get("/main/items/categorylist", [CategoryListController::class, "index"])->name("main/items/categorylist");
 Route::get("/main/items/createcategory", [CategoryListController::class, "createCategory"])->name("main/items/createcategory");
+Route::post("/main/items/save-category-to-database", [CategoryListController::class, "saveCategoryToDatabase"])->name('main.items.saveCategoryToDatabase');
 
 // ITEMS => BRAND LIST ROUTE
 Route::get("/main/items/brandlist", [BrandListController::class, "index"])->name("main/items/brandlist");
@@ -137,6 +139,7 @@ Route::get("/main/items/createbrand", [BrandListController::class, "createBrand"
 // WAREHOUSE => WAREHOUSE LIST ROUTE
 Route::get("/main/warehouse/warehouseslist", [WarehouseListController::class, "index"])->name("main/warehouse/warehouseslist");
 Route::get("/main/warehouse/createwarehouse", [WarehouseListController::class, "createWarehouse"])->name("main/warehouse/createwarehouse");
+Route::post("/main/warehouse/save-warehouse-to-database", [WarehouseListController::class, "saveWarehouseToDatabase"])->name('main.warehouse.saveWarehouseToDatabase');
 
 // WAREHOUSE => OUTLET LIST ROUTE
 Route::get("/main/warehouse/outletslist", [OutletListController::class, "index"])->name("main/warehouse/outletslist");
@@ -193,6 +196,7 @@ Route::get("/main/users/profile", [ProfileController::class, "index"])->name("ma
 // USERS => ALL USERS ROUTE
 Route::get("/main/users/userslist", [AllUsersController::class, "index"])->name("main/users/userslist");
 Route::get("/main/users/createuser", [AllUsersController::class, "createUser"])->name("main/users/createuser");
+Route::post("/main/users/save-user-to-database", [AllUsersController::class, "saveUserToDatabase"])->name('main.users.saveUserToDatabase');
 
 // USERS => EMPLOYEE ROUTE
 Route::get("/main/users/employeelist", [EmployeeController::class, "index"])->name("main/users/employeelist");
