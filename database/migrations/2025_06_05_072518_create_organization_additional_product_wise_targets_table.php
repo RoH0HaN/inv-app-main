@@ -48,7 +48,6 @@ return new class extends Migration
             $table->index('org_tg_id');
             $table->index('item_id');
 
-
             $table->timestamps();
         });
     }
