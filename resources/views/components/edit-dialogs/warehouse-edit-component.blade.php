@@ -14,7 +14,8 @@
         </button>
       </div>
 
-      <form class="p-4 space-y-3">
+      <form class="p-4 space-y-3" method="POST" enctype="multipart/form-data" action="{{ route('warehouse.updateWarehouse') }}">
+        @csrf
         <!-- Warehouse Image -->
         <div class="flex flex-col items-center">
           <div class="relative size-24 rounded-lg bg-gray-100 mb-3 overflow-hidden dark:bg-neutral-700">
@@ -33,21 +34,25 @@
           </label>
         </div>
 
+        <!-- Organization Id -->
+        <input type="hidden" id="edit-id" name="id">
+
+
         <!-- Organization Name -->
         <div>
           <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Organization Name</label>
-          <input type="text" name="organization_name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+          <input type="text" id="edit-organization" name="organization_name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
         </div>
 
         <!-- Mobile & Alternative Mobile -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Mobile Number</label>
-            <input type="tel" name="mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+            <input type="tel" id="edit-mobile" name="mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Alternative Mobile</label>
-            <input type="tel" name="alternative_mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="tel" id="edit-alt-mobile" name="alternative_mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 
@@ -55,18 +60,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Email</label>
-            <input type="email" name="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="email" id="edit-email" name="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Tax Number</label>
-            <input type="text" name="tax_number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="text" id="edit-tax" name="tax_number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 
         <!-- Address -->
         <div>
           <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Address</label>
-          <textarea name="address" rows="3" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"></textarea>
+          <textarea id="edit-address" name="address" rows="3" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"></textarea>
         </div>
 
         <!-- Form Actions -->

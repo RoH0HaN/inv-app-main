@@ -71,7 +71,7 @@ Route::controller(AdminLoginController::class)->group(function () {
 Route::get("/admin/forget-password", [AdminForgetPasswordController::class, "forgetPassword"])->name("admin.forgetPassword");
 
 // DASHBOARD ROUTE
-Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
+Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard")->middleware(VerifyLogin::class);
 
 Route::prefix("contacts")->name("contacts.")->middleware(VerifyLogin::class)->group(function () {
     // CONTACTS => CUSTOMERS ROUTE
@@ -154,12 +154,14 @@ Route::prefix("warehouse")->name("warehouse.")->middleware(VerifyLogin::class)->
         Route::get("/warehouses-list", "index")->name("warehousesList");
         Route::get("/create-warehouse", "createWarehouse")->name("createWarehouse");
         Route::post("/save-warehouse-to-database", "saveWarehouseToDatabase")->name('saveWarehouseToDatabase');
+        Route::post("/update-warehouse", "updateWarehouse")->name('updateWarehouse');
     });
-
+    
     // WAREHOUSE => OUTLET LIST ROUTE
     Route::controller(OutletListController::class)->group(function () {
         Route::get("/outlets-list", "index")->name("outletsList");
         Route::get("/create-outlet", "createOutlet")->name("createOutlet");
+        Route::post("/save-outlet-to-database", "saveOutletToDatabase")->name('saveOutletToDatabase');
     });
 
     // WAREHOUSE => STOCK TRANSFER LIST ROUTE

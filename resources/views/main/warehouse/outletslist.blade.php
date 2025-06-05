@@ -35,6 +35,20 @@
                 </div>
                 <div class="px-5 py-5">
                     <div class="table-container">
+
+                        <div class="flex justify-end items-center space-x-4 mb-4">
+                            <!-- Buttons -->
+                            <x-export-controls />
+
+                            <!-- Search -->
+                            <div class="flex items-center space-x-2">
+                                <form method="GET" action="{{ route('warehouse.warehousesList') }}">
+                                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search warehouse..." class="px-3 py-2 border rounded-md">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Search</button>
+                                </form>
+                            </div>
+                        </div>
+
                         <table id="myTable" class="custom-data-table">
                             <thead>
                                 <tr>
@@ -48,13 +62,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach ($outlets as $outlet)
                                 <tr>
-                                    <td>John Doe</td>
+                                    <td>{{ $outlet->organization_name }}</td>
                                     <td>50</td>
                                     <td>2000</td>
                                     <td>45,00000</td>
-                                    <td>2025-04-16 10:23 AM</td>
-                                    <td>2025-04-16 10:23 AM</td>
+                                    <td>{{ $outlet->first_name }} {{ $outlet->last_name }}</td>
+                                    <td>{{ $outlet->created_at }}</td>
                                     <td>
                                         <div class="hs-dropdown relative inline-flex">
                                             <button type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-xs rounded-full bg-[#abd7ff] text-[#0084ff] hover:bg-[#9bc3ff] focus:outline-hidden focus:bg-[#9bc3ff] disabled:opacity-50 disabled:pointer-events-none cursor-pointer font-bold uppercase" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
@@ -62,7 +77,7 @@
                                             </button>
                                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700 shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-with-icons">
                                                 <div class="p-1">
-                                                    <button class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-outlet-dialog" data-hs-overlay="#edit-outlet-dialog">
+                                                    <button class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-warehouse-dialog" data-hs-overlay="#edit-warehouse-dialog">
                                                         <img src="/assets/table/edit.svg" alt="" class="w-4 h-4">
                                                         Edit
                                                     </button>
@@ -75,8 +90,11 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        <!-- Pagination Links (Preserve search param) -->
+                        {{ $outlets->appends(['search' => request('search')])->links() }}
                     </div>
                 </div>
             </div>
@@ -88,13 +106,7 @@
 
     <!-- Main js For Table Start -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $("#myTable").DataTable();
-        });
-    </script>
     <!-- Main js For Table End -->
 </body>
 </html>

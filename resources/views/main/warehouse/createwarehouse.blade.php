@@ -46,7 +46,7 @@
                     <h3 class="font-semibold text-2xl">WAREHOUSE DETAILS</h3>
                 </div>
                 <div class="py-5 px-5">
-                    <form id="" action="{{ route('main.warehouse.saveWarehouseToDatabase') }}" enctype="multipart/form-data" method="POST" class="space-y-6">
+                    <form id="" action="{{ route('warehouse.saveWarehouseToDatabase') }}" enctype="multipart/form-data" method="POST" class="space-y-6">
                         @csrf
                         <!-- Logo Section Start -->
                         <p class="block text-base font-semibold mb-3 text-[#8d8d8d] dark:text-white">Organization Logo</p>
@@ -78,7 +78,6 @@
                                 <p class="text-sm mt-3 text-gray-500">Allowed JPG, JPEG, GIF or PNG. Max 1MB.</p>
                             </div>
                         </div>
-
                         <!-- Logo Section End -->
 
                         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
@@ -123,9 +122,9 @@
                             <button type="submit" class="w-fit bg-indigo-600 text-white py-2 px-12 rounded-md hover:bg-indigo-700 transition cursor-pointer">
                                 Submit
                             </button>
-                            <button type="button" class="py-2 px-12 w-fit inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-pointer">
+                            <a href="{{ url()->previous() }}"><button type="button" class="py-2 px-12 w-fit inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 cursor-pointer">
                                 Close
-                            </button>
+                            </button></a>
                         </div>
                         <!-- Submit Button End -->
                     </form>

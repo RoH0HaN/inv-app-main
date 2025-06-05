@@ -25,6 +25,27 @@
                 ['url' => route('warehouse.warehousesList'), 'text' => 'Warehouse List']
             ]" />
 
+            <!-- For success message -->
+            @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             <!-- Table Start -->
             <div class="shadow-md rounded-lg bg-[#fff]">
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
@@ -35,6 +56,20 @@
                 </div>
                 <div class="px-5 py-5">
                     <div class="table-container">
+
+                        <div class="flex justify-end items-center space-x-4 mb-4">
+                            <!-- Buttons -->
+                            <x-export-controls />
+
+                            <!-- Search -->
+                            <div class="flex items-center space-x-2">
+                                <form method="GET" action="{{ route('warehouse.warehousesList') }}">
+                                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search warehouse..." class="px-3 py-2 border rounded-md">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Search</button>
+                                </form>
+                            </div>
+                        </div>
+
                         <table id="myTable" class="custom-data-table">
                             <thead>
                                 <tr>
@@ -50,12 +85,12 @@
                             <tbody>
                             @foreach ($warehouses as $warehouse)
                                 <tr>
-                                    <td>{{ $warehouse->organization_name }}</td>
+                                    <td>{{ $warehouse->organization_name }} | {{ $warehouse->id }}</td>
                                     <td>50</td>
                                     <td>2000</td>
                                     <td>45,00000</td>
-                                    <td>2025-04-16 10:23 AM</td>
-                                    <td>2025-04-16 10:23 AM</td>
+                                    <td>{{ $warehouse->first_name }} {{ $warehouse->last_name }}</td>
+                                    <td>{{ $warehouse->created_at }}</td>
                                     <td>
                                         <div class="hs-dropdown relative inline-flex">
                                             <button type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-xs rounded-full bg-[#abd7ff] text-[#0084ff] hover:bg-[#9bc3ff] focus:outline-hidden focus:bg-[#9bc3ff] disabled:opacity-50 disabled:pointer-events-none cursor-pointer font-bold uppercase" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
@@ -63,7 +98,18 @@
                                             </button>
                                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700 shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-with-icons">
                                                 <div class="p-1">
-                                                    <button class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-warehouse-dialog" data-hs-overlay="#edit-warehouse-dialog">
+                                                    <button 
+                                                        class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-warehouse-dialog"
+                                                        data-hs-overlay="#edit-warehouse-dialog"
+                                                        data-id="{{ $warehouse->id }}"
+                                                        data-organization="{{ $warehouse->organization_name }}"
+                                                        data-mobile="{{ $warehouse->mobile }}"
+                                                        data-alt-mobile="{{ $warehouse->alternative_mobile }}"
+                                                        data-email="{{ $warehouse->email }}"
+                                                        data-tax="{{ $warehouse->tax_number }}"
+                                                        data-address="{{ $warehouse->address }}"
+                                                        data-image="{{ $warehouse->organization_logo }}"
+                                                    >
                                                         <img src="/assets/table/edit.svg" alt="" class="w-4 h-4">
                                                         Edit
                                                     </button>
@@ -79,6 +125,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Pagination Links (Preserve search param) -->
+                        {{ $warehouses->appends(['search' => request('search')])->links() }}
                     </div>
                 </div>
             </div>
@@ -86,17 +134,45 @@
 
             <x-edit-dialogs.warehouse-edit-component />
         </section>
+
     @endsection
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButtons = document.querySelectorAll('[data-hs-overlay="#edit-warehouse-dialog"]');
 
-    <!-- Main js For Table Start -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+            editButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log("Edit button clicked");
+                console.log( "ID: ",button.dataset.id);
+                console.log("ORG: ", button.dataset.organization);
+                console.log("IMAGE: ", button.dataset.image);
+                document.getElementById('edit-id').value = button.dataset.id || '';
+                document.getElementById('edit-organization').value = button.dataset.organization || '';
+                document.getElementById('edit-mobile').value = button.dataset.mobile || '';
+                document.getElementById('edit-alt-mobile').value = button.dataset.altMobile || '';
+                document.getElementById('edit-email').value = button.dataset.email || '';
+                document.getElementById('edit-tax').value = button.dataset.tax || '';
+                document.getElementById('edit-address').value = button.dataset.address || '';
 
-    <script>
-        $(document).ready(function () {
-            $("#myTable").DataTable();
+                // Optional: show preview image if image URL exists
+                const preview = document.getElementById('warehouse-image-preview');
+                const placeholder = document.getElementById('warehouse-image-placeholder');
+                if (button.dataset.image) {
+                    preview.src = "{{ url('/') }}/"+button.dataset.image;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                } else {
+                    preview.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+            });
+            });
         });
     </script>
-    <!-- Main js For Table End -->
+
+    <!-- Main js For Table Start -->
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
