@@ -23,7 +23,6 @@ class AdminLoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->route('main/dashboard/dashboard')->with('success', 'Login successful');
         }
-
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
