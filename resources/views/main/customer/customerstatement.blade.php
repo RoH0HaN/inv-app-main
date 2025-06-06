@@ -44,7 +44,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/main/customer/customerstatement', 'text' => 'Customer Statement']
+                ['url' => '/customer/customer-statement', 'text' => 'Customer Statement']
             ]" />
 
             <!-- Table Start -->

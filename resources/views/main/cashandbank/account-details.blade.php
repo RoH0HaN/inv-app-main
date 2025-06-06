@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Cash & Bank'],
-                ['url' => '/main/cashandbank/account-details', 'text' => 'Account Details']
+                ['url' => '/cash-bank/account-details', 'text' => 'Account Details']
             ]" />
 
             <!-- Table Start -->

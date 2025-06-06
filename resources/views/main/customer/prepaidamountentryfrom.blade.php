@@ -38,9 +38,9 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
-                ['url' => '/main/customer/prepaidamounthistory', 'text' => 'Prepaid Amount History'],
-                ['url' => '/main/customer/prepaidamountentryfrom', 'text' => 'Prepaid Amount Entry']
+                ['url' => '/customer/customer-outstanding', 'text' => 'Customer Outstandings'],
+                ['url' => '/customer/customer-prepaid', 'text' => 'Prepaid Amount History'],
+                ['url' => '/customer/create-customer-prepaid', 'text' => 'Prepaid Amount Entry']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

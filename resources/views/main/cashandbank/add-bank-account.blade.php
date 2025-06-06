@@ -16,8 +16,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Cash & Bank'],
-                ['url' => '/main/cashandbank/banks', 'text' => 'Bank Accounts'],
-                ['url' => '/main/cashandbank/add-bank-account', 'text' => 'Create Bank Account']
+                ['url' => '/cash-bank/banks', 'text' => 'Bank Accounts'],
+                ['url' => '/cash-bank/add-bank-account', 'text' => 'Create Bank Account']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

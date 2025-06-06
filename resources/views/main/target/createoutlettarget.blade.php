@@ -22,8 +22,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Target'],
-                ['url' => '/main/target/outlettarget', 'text' => 'Outlet Target List'],
-                ['url' => '/main/target/createoutlettarget', 'text' => 'Create Target']
+                ['url' => '/target/outlet-target', 'text' => 'Outlet Target List'],
+                ['url' => '/target/create-outlet-target', 'text' => 'Create Target']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

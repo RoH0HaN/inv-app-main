@@ -22,8 +22,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Reports'],
-                ['url' => '/main/reports/partyreport', 'text' => 'Party Report (Payment History)'],
-                ['url' => '/main/reports/viewstatement', 'text' => 'Statement']
+                ['url' => '/reports/party-report', 'text' => 'Party Report (Payment History)'],
+                ['url' => '/reports/view-statement', 'text' => 'Statement']
             ]" />
 
             <!-- Table Start -->

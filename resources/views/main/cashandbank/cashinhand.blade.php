@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Cash & Bank'],
-                ['url' => '/main/cashandbank/cashinhand', 'text' => 'Cash In Hand']
+                ['url' => '/cash-bank/cash-in-hand', 'text' => 'Cash In Hand']
             ]" />
 
             <!-- Table Start -->
@@ -30,7 +30,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">CASH IN HAND : <span class="text-[#03AD00]">98,000,0000</span></h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/sale/createsale" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Adjust Cash</a>
+                        <a href="/sale/create-sale" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Adjust Cash</a>
                     </button>
                 </div>
 

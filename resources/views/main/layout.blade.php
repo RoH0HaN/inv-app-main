@@ -29,12 +29,12 @@
 
             <div class="w-full flex items-center justify-end ms-auto gap-x-1 md:gap-x-3">
                 <div class="flex flex-row items-center justify-end gap-3">
-                    <a href="/main/sale/createsale" class="flex items-center justify-center gap-3 border-2 border-[#03ad00] text-[#03ad00] w-36 box-border px-2 py-1 rounded-full cursor-pointer">
+                    <a href="/sale/create-sale" class="flex items-center justify-center gap-3 border-2 border-[#03ad00] text-[#03ad00] w-36 box-border px-2 py-1 rounded-full cursor-pointer">
                         <img src="/assets/sidebar/add-circle.svg" alt="Add Sale" class="w-[18px] h-[18px] aspect-square">
                         <span class="text-sm">Add Sale</span>
                     </a>
 
-                    <a href="/main/purchase/createpurchase" class="flex items-center justify-center gap-3 border-2 border-[#0084ff] text-[#0084ff] w-36 box-border px-2 py-1 rounded-full cursor-pointer">
+                    <a href="/purchase/create-purchase" class="flex items-center justify-center gap-3 border-2 border-[#0084ff] text-[#0084ff] w-36 box-border px-2 py-1 rounded-full cursor-pointer">
                         <img src="/assets/sidebar/add-circle1.svg" alt="Add Sale" class="w-[18px] h-[18px] aspect-square">
                         <span class="text-sm shrink-0">Add Purchase</span>
                     </a>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="p-1.5 space-y-0.5">
                                 <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
-                                    href="/main/users/profile">
+                                    href="/users/profile">
                                     <img src="/assets/sidebar/profile-1user.svg" alt="">
                                     Profile
                                 </a>
@@ -280,13 +280,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/sale/invoices">
+                                            href="/sale/invoices">
                                             Invoice
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/sale/paymentin">
+                                            href="/sale/payment-in">
                                             Payment In
                                         </a>
                                     </li>
@@ -328,13 +328,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/purchase/purchasebills">
+                                            href="/purchase/purchase-bills">
                                             Purchase Bill
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/purchase/paymentout">
+                                            href="/purchase/payment-out">
                                             Payment Out
                                         </a>
                                     </li>
@@ -376,31 +376,31 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/customer/reportbyitem">
+                                            href="/customer/report-by-item">
                                             Report By Item
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/customer/customerstatement">
+                                            href="/customer/customer-statement">
                                             Customer Statement
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/customer/customeroutstandings">
+                                            href="/customer/customer-outstanding">
                                             Customer Outstanding's
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/customer/prepaidamountentryfrom">
+                                            href="/customer/create-customer-prepaid">
                                             Prepaid Amount Entry
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/customer/returnamountentryfrom">
+                                            href="/customer/create-customer-return">
                                             Return Amount Entry
                                         </a>
                                     </li>
@@ -436,19 +436,19 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/supplier/reportbyitem">
+                                            href="/supplier/report-by-item">
                                             Report By Item
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/supplier/supplierstatement">
+                                            href="/supplier/supplier-statement">
                                             Supplier Statement
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/supplier/supplieroutstandings">
+                                            href="/supplier/supplier-outstanding">
                                             Supplier Outstanding's
                                         </a>
                                     </li>
@@ -514,19 +514,19 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/items/itemlist">
+                                            href="/items/item-list">
                                             Item List
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/items/categorylist">
+                                            href="/items/category-list">
                                             Category List
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/items/brandlist">
+                                            href="/items/brand-list">
                                             Brand List
                                         </a>
                                     </li>
@@ -610,49 +610,49 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/billwiseprofit">
+                                            href="/reports/bill-wise-profit">
                                             Bill-Wise Profit
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/salessummery">
+                                            href="/reports/sales-summery">
                                             Sales Summery
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/purchasesummery">
+                                            href="/reports/purchase-summery">
                                             Purchase Summery
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/daybook">
+                                            href="/reports/daybook">
                                             Daybook
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/stockreport">
+                                            href="/reports/stock-report">
                                             Stock Report
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/partyreport">
+                                            href="/reports/party-report">
                                             Party Report
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/gstreport">
+                                            href="/reports/gst-report">
                                             GST Report
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/reports/expensereport">
+                                            href="/reports/expense-report">
                                             Expenses Report
                                         </a>
                                     </li>
@@ -688,13 +688,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/expenses/expenselist">
+                                            href="/expenses/expense-list">
                                             Expenses
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/expenses/expensetype">
+                                            href="/expenses/expense-type">
                                             Expenses Types
                                         </a>
                                     </li>
@@ -730,13 +730,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/cashandbank/cashinhand">
+                                            href="/cash-bank/cash-in-hand">
                                             Cash In Hand
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/cashandbank/banks">
+                                            href="/cash-bank/banks">
                                             Banks
                                         </a>
                                     </li>
@@ -772,7 +772,7 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/users/profile">
+                                            href="/users/profile">
                                             Profile
                                         </a>
                                     </li>
@@ -784,7 +784,7 @@
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/users/employeelist">
+                                            href="/users/employee-list">
                                             Employees
                                         </a>
                                     </li>
@@ -820,13 +820,13 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/target/organizationtarget">
+                                            href="/target/organization-target">
                                             Organization Target
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/target/outlettarget">
+                                            href="/target/outlet-target">
                                             Outlet Target
                                         </a>
                                     </li>
@@ -862,7 +862,7 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/settings/organization">
+                                            href="/settings/organization">
                                             Organization
                                         </a>
                                     </li>
@@ -874,25 +874,25 @@
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/settings/unitlist">
+                                            href="/settings/unit-list">
                                             Unit List
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/settings/tcs-tds-rates">
+                                            href="/settings/tcs-tds-rates">
                                             TDS/TCS List
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/settings/payment-options">
+                                            href="/settings/payment-options">
                                             Payment Options
                                         </a>
                                     </li>
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/main/settings/finances-list">
+                                            href="/settings/finances-list">
                                             Finance Details
                                         </a>
                                     </li>

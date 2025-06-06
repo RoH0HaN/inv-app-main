@@ -32,8 +32,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Target'],
-                ['url' => '/main/target/organizationtarget', 'text' => 'Organization Target List'],
-                ['url' => '/main/target/createorganizationtarget', 'text' => 'Create Target']
+                ['url' => '/target/organization-target', 'text' => 'Organization Target List'],
+                ['url' => '/target/create-organization-target', 'text' => 'Create Target']
             ]" />
         </section>
 

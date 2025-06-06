@@ -53,8 +53,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Sale'],
-                ['url' => '/main/sale/invoices', 'text' => 'Invoices'],
-                ['url' => '/main/sale/completepayment', 'text' => 'Complete Payment']
+                ['url' => '/sale/invoices', 'text' => 'Invoices'],
+                ['url' => '/sale/complete-payment', 'text' => 'Complete Payment']
             ]" />
         </section>
 

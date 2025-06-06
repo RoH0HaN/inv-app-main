@@ -16,8 +16,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Item'],
-                ['url' => '/main/items/brandlist', 'text' => 'Brand List'],
-                ['url' => '/main/items/createbrand', 'text' => 'Create Brand']
+                ['url' => '/items/brand-list', 'text' => 'Brand List'],
+                ['url' => '/items/create-brand', 'text' => 'Create Brand']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

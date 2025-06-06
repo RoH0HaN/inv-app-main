@@ -22,8 +22,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
-                ['url' => '/main/customer/prepaidamounthistory', 'text' => 'Prepaid Amount History']
+                ['url' => '/customer/customer-outstanding', 'text' => 'Customer Outstandings'],
+                ['url' => '/customer/customer-prepaid', 'text' => 'Prepaid Amount History']
             ]" />
 
             <!-- Table Start -->
@@ -31,7 +31,7 @@
                     <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                         <h3 class="font-semibold text-2xl">PREPAID AMOUNT HISTORY</h3>
                         <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                            <a href="/main/customer/prepaidamountentryfrom" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Prepaid Amount Entry</a>
+                            <a href="/customer/create-customer-prepaid" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Prepaid Amount Entry</a>
                         </button>
                     </div>
                     <section class="flex px-5 mt-5 tracking-wide gap-x-20">

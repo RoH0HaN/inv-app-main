@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Cash & Bank'],
-                ['url' => '/main/cashandbank/banks', 'text' => 'Bank Accounts']
+                ['url' => '/cash-bank/banks', 'text' => 'Bank Accounts']
             ]" />
 
             <!-- Table Start -->
@@ -30,7 +30,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">BANK ACCOUNTS</h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/cashandbank/add-bank-account" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Add Bank</a>
+                        <a href="/cash-bank/add-bank-account" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Add Bank</a>
                     </button>
                 </div>
                 <div class="px-5 py-5">
@@ -66,7 +66,7 @@
                                                         <img src="/assets/table/edit.svg" alt="" class="w-4 h-4">
                                                         Edit
                                                     </button>
-                                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/main/cashandbank/account-details">
+                                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/cash-bank/account-details">
                                                         <img src="/assets/main/sale/eye.svg" alt="" class="w-4 h-4">
                                                         View
                                                     </a>

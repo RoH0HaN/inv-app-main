@@ -40,7 +40,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Sale'],
-                ['url' => '/main/sale/createsale', 'text' => 'Create Sale']
+                ['url' => '/sale/create-sale', 'text' => 'Create Sale']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

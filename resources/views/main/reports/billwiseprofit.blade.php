@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Reports'],
-                ['url' => '/main/reports/billwiseprofit', 'text' => 'Bill-Wise Profit']
+                ['url' => '/reports/bill-wise-profit', 'text' => 'Bill-Wise Profit']
             ]" />
 
             <!-- Table Start -->

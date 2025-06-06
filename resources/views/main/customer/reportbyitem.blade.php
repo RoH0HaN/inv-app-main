@@ -44,7 +44,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/main/customer/reportbyitem', 'text' => 'Report By Item']
+                ['url' => '/customer/report-by-item', 'text' => 'Report By Item']
             ]" />
 
             <!-- Table Start -->

@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Sale'],
-                ['url' => '/main/sale/invoices', 'text' => 'Invoices']
+                ['url' => '/sale/invoices', 'text' => 'Invoices']
             ]" />
 
             <!-- Table Start -->
@@ -30,7 +30,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">INVOICES</h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/sale/createsale" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Sale</a>
+                        <a href="/sale/create-sale" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create Sale</a>
                     </button>
                 </div>
 
@@ -119,7 +119,7 @@
                                                         <img src="/assets/main/sale/printer.svg" alt="" class="w-4 h-4">
                                                         Print
                                                     </a>
-                                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-[#03AD00] hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/main/sale/completepayment">
+                                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-[#03AD00] hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="/sale/complete-payment">
                                                         <img src="/assets/main/sale/card-tick.svg" alt="" class="w-4 h-4">
                                                         Complete
                                                     </a>

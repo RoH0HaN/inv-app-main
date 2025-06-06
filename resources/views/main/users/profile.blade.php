@@ -16,7 +16,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Users'],
-                ['url' => '/main/users/profile', 'text' => 'Update Profile']
+                ['url' => '/users/profile', 'text' => 'Update Profile']
             ]" />
 
             <div class="flex">

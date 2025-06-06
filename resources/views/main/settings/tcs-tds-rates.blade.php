@@ -24,7 +24,7 @@
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">TDS/TCS RATES</h3>
                     <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                        <a href="/main/settings/create-tcs-tds" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create TDS/TCS</a>
+                        <a href="/settings/create-tcs-tds" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Create TDS/TCS</a>
                     </button>
                 </div>
                 <div class="px-5 py-5">

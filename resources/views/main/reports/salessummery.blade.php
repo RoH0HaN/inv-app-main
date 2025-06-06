@@ -22,7 +22,7 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Reports'],
-                ['url' => '/main/reports/salessummery', 'text' => 'Sales Summery']
+                ['url' => '/reports/sales-summery', 'text' => 'Sales Summery']
             ]" />
 
             <!-- Table Start -->
