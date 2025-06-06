@@ -98,24 +98,32 @@ class PrepaidAmountHistoryController extends Controller
             'referral_number' =>'required'
         ]);
 
-        DB::table('prepaid_amount_transactions')->insert([
-            'date' => $req->date,
-            'customer_id' => $req->customer_id,
-            'particular' => $req->particular,
-            'tcs_tds' => $req->tcs_tds,
-            'amount' => $req->amount,
-            'note' => $req->note,
-            'referral_number' => $req->referral_number,
-            'created_by_id' => Auth::id(),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        DB::beginTransaction();
 
-        if (!$this->updateCustomerBalance((float) $req->amount, $req->customer_id)) {
-            return redirect()->back()->with('error', 'Could not update balance.');
-        }        
-
-        return redirect()->back()->with('success', 'Prepaid amount entry saved successfully!');
+        try {
+            DB::table('prepaid_amount_transactions')->insert([
+                'date' => $req->date,
+                'customer_id' => $req->customer_id,
+                'particular' => $req->particular,
+                'tcs_tds' => $req->tcs_tds,
+                'amount' => $req->amount,
+                'note' => $req->note,
+                'referral_number' => $req->referral_number,
+                'created_by_id' => Auth::id(),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+    
+            if (!$this->updateCustomerBalance((float) $req->amount, $req->customer_id)) {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'Could not update balance.');
+            }        
+            DB::commit();
+            return redirect()->back()->with('success', 'Prepaid amount entry saved successfully!');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Something went wrong. ' . $e->getMessage());
+        }
     }
 
     public function updateCustomerBalance(float $amount, int $customerId): bool {

@@ -123,30 +123,6 @@ Route::prefix("purchase")->name("purchase.")->middleware(VerifyLogin::class)->gr
     Route::get("/payment-out", [PaymentOutController::class, "index"])->name("paymentOut");
 });
 
-
-Route::prefix("customer")->name("customer.")->middleware(VerifyLogin::class)->group(function () {
-   
-    // CUSTOMER 
-    ROute::controller(CustomerController::class)->group(function () {
-       Route::get('/report-by-item', 'reportByItem')->name('reportByItem');
-       Route::get('/customer-statement', 'customerStatement')->name('customerStatement');
-       Route::get('/customer-outstanding', 'customerOutstanding')->name('customerOutstanding'); 
-    });
-
-    // CUSTOMER => CUSTOMER PREPAID ROUTE
-    Route::controller(PrepaidAmountHistoryController::class)->group(function () {
-        Route::get("/customer-prepaid", "index")->name("customerPrepaid");
-        Route::get("/create-customer-prepaid", "createCustomerPrepaid")->name("createCustomerPrepaid");
-    });
-
-    // CUSTOMER => CUSTOMER RETURN AMOUNT ROUTE
-    Route::controller(ReturnAmountHistoryController::class)->group(function () {
-        Route::get("/customer-return", "index")->name("customerReturn");
-        Route::get("/create-customer-return", "createCustomerReturn")->name("createCustomerReturn");
-    });
-});
-
-
 Route::prefix('customer')->name('customer.')->middleware(VerifyLogin::class)->group(function () {
     // CUSTOMER => PREPAID AMOUNT HISTORY & ENTRY ROUTE
     Route::controller(PrepaidAmountHistoryController::class)->group(function () {
@@ -154,22 +130,26 @@ Route::prefix('customer')->name('customer.')->middleware(VerifyLogin::class)->gr
         Route::get("/prepaid-amount-entry-from/{id?}", "prepaidAmountEntry")->name("prepaidAmountEntry");
         Route::post("/save-prepaid-amount-entry-to-database", "savePrepaidAmountEntryToDatabase")->name("savePrepaidAmountEntryToDatabase");
     });
-
+    
     // CUSTOMER => RETURN AMOUNT HISTORY & ENTRY ROUTE
     Route::controller(ReturnAmountHistoryController::class)->group(function () {
-        Route::get("/return-amount-history", "index")->name("returnAmountHistory");
-        Route::get("/return-amount-entry-from", "returnAmountEntry")->name("returnAmountEntry");
+        Route::get("/return-amount-history/{id?}", "index")->name("returnAmountHistory");
+        Route::get("/return-amount-entry-from/{id?}", "returnAmountEntry")->name("returnAmountEntry");
+        Route::post("/save-return-amount-entry-to-database", "saveReturnAmountEntryToDatabase")->name("saveReturnAmountEntryToDatabase");
     });
+
+    // CUSTOMER => REPORTS, STATEMENTS & OUTSTANDINGS
+    Route::get('/report-by-item', [CustomerReportByItemController::class, "index"])->name('reportByItem');
+    Route::get('/customer-statement', [CustomerStatementController::class, "index"])->name('customerStatement');
+    Route::get('/customer-outstanding', [CustomerOutstandingsController::class, "index"])->name('customerOutstanding'); 
 });
 
 Route::prefix("supplier")->name("supplier.")->middleware(VerifyLogin::class)->group(function () {
-   
-    // SUPPLIER 
-    ROute::controller(SupplierController::class)->group(function () {
-       Route::get('/report-by-item', 'reportByItem')->name('reportByItem');
-       Route::get('/supplier-statement', 'supplierStatement')->name('supplierStatement');
-       Route::get('/supplier-outstanding', 'supplierOutstanding')->name('supplierOutstanding'); 
-    });
+
+    // SUPPLIER => REPORTS, STATEMENTS & OUTSTANDINGS
+    Route::get('/report-by-item', [SupplierReportByItemController::class, "index"])->name('reportByItem');
+    Route::get('/supplier-statement', [SupplierStatementController::class, "index"])->name('supplierStatement');
+    Route::get('/supplier-outstanding', [SupplierOutstandingsController::class, "index"])->name('supplierOutstanding'); 
 });
 
 
