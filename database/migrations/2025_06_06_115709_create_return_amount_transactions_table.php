@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('debit_note_transactions', function (Blueprint $table) {
+        Schema::create('return_amount_transactions', function (Blueprint $table) {
             $table->id();
 
             $table->string('referral_number', 30)->unique();
@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('note', 255)->nullable();
 
             // -- to identify the supplier of the debit note, foreign key to suppliers table added
-            $table->unsignedBigInteger('supplier_id')->nullable();
-            $table->foreign('supplier_id')
-                ->references('id')->on('suppliers')
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->foreign('customer_id')
+                ->references('id')->on('customers')
                 ->onUpdate('set null')->onDelete('set null');
 
             // -- to identify who created this document, foreign key to user table added
@@ -35,7 +35,7 @@ return new class extends Migration
 
             // -- Indexes for faster querying
             $table->index('created_by_id');
-            $table->index('supplier_id');
+            $table->index('customer_id');
 
             $table->timestamps();
         });
@@ -46,6 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('debit_note_transactions');
+        Schema::dropIfExists('return_amount_transactions');
     }
 };

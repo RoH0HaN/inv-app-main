@@ -1,3 +1,8 @@
+
+{{-- resources/views/components/edit-dialogs/outlet-edit-component.blade.php --}}
+@props(['warehouses'])
+
+
 <div id="edit-outlet-dialog" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="edit-outlet-dialog-label">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-2xl sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
     <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70 w-full">
@@ -14,7 +19,9 @@
         </button>
       </div>
 
-      <form class="p-4 space-y-3">
+      <form method="POST" action="{{ route('warehouse.updateOutlet') }}" enctype="multipart/form-data" class="p-4 space-y-3">
+        @csrf
+        <input type="hidden" name="id" value="">
         <!-- Outlet Image -->
         <div class="flex flex-col items-center">
           <div class="relative size-24 rounded-lg bg-gray-100 mb-3 overflow-hidden dark:bg-neutral-700">
@@ -30,7 +37,7 @@
           <label class="cursor-pointer">
             <span class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-[#0084FF] text-white hover:bg-[#0059ff] disabled:opacity-50 disabled:pointer-events-none">
               Upload Image
-              <input type="file" id="outlet-image" name="outlet_image" accept="image/*" class="hidden">
+              <input type="file" id="outlet-image" name="organization_logo" accept="image/*" class="hidden">
             </span>
           </label>
         </div>
@@ -74,11 +81,13 @@
         <!-- Warehouse Dropdown -->
         <div>
           <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Warehouse</label>
-          <select name="warehouse" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-            <option selected disabled>Select Warehouse</option>
-            <option value="warehouse_1">Warehouse 1</option>
-            <option value="warehouse_2">Warehouse 2</option>
-            <option value="warehouse_3">Warehouse 3</option>
+          <select name="warehouse_id" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <option disabled {{ old('warehouse_id') ? '' : 'selected' }}>Select Warehouse</option>
+            @foreach ($warehouses as $warehouse)
+                <option value="{{ $warehouse->id }}" {{ old('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
+                    {{ $warehouse->organization_name }}
+                </option>
+            @endforeach
           </select>
         </div>
 
@@ -86,11 +95,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Invoice Prefix (GST)</label>
-            <input type="text" name="gst_invoice_prefix" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="text" name="invoice_prefix_gst" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Invoice Number (GST)</label>
-            <input type="number" name="gst_invoice_number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="number" name="invoice_number_gst" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 
@@ -98,11 +107,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Invoice Prefix (Non-GST)</label>
-            <input type="text" name="non_gst_invoice_prefix" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="text" name="invoice_prefix_ngst" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Invoice Number (Non-GST)</label>
-            <input type="number" name="non_gst_invoice_number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="number" name="invoice_number_ngst" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 

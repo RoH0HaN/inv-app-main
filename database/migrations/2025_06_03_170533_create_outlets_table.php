@@ -30,10 +30,10 @@ return new class extends Migration
             $table->string('invoice_number_ngst', 100);
 
             // -- to identify which warehouse this outlet belongs to, foreign key to warehouse table added
-            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('warehouse_id')->nullable();
             $table->foreign('warehouse_id')
                 ->references('id')->on('warehouses')
-                ->onUpdate('cascade')->onDelete('cascade');
+                ->onUpdate('set null')->onDelete('set null');
 
             // -- to identify who created this document, foreign key to user table added
             $table->unsignedBigInteger('created_by_id'); 

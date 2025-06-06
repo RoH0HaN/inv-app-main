@@ -61,6 +61,7 @@ use App\Http\Controllers\main\settings\FinanceController;
 
 // MIDDLEWARE
 use App\Http\Middleware\VerifyLogin;
+use Illuminate\Routing\Router;
 
 // ADMIN ROUTE
 Route::controller(AdminLoginController::class)->group(function () {
@@ -78,6 +79,9 @@ Route::prefix("contacts")->name("contacts.")->middleware(VerifyLogin::class)->gr
     Route::controller(CustomerController::class)->group(function () {
         Route::get("/customers", "index")->name("customers");
         Route::get("/create-customer", "createCustomer")->name("createCustomer");
+        Route::post("/save-customer-to-database", "saveCustomerToDatabase")->name("saveCustomerToDatabase");  
+        Route::post("/update-customer", "updateCustomer")->name("updateCustomer");  
+        Route::delete("/delete-customer", "deleteCustomer")->name("deleteCustomer");  
     });
 
     // CONTACTS => SUPPLIERS ROUTE
@@ -164,13 +168,20 @@ Route::prefix("customer")->name("customer.")->middleware(VerifyLogin::class)->gr
 // // CUSTOMER => CUSTOMER OUTSTANDINGS ROUTE
 // Route::get("/customer/customer-outstanding", [CustomerOutstandingsController::class, "index"])->name("main/customer/customeroutstandings");
 
-// // CUSTOMER => PREPAID AMOUNT HISTORY & ENTRY ROUTE
-// Route::get("/customer/customer-prepaid", [PrepaidAmountHistoryController::class, "index"])->name("main/customer/prepaidamounthistory");
-// Route::get("/customer/create-customer-prepaid", [PrepaidAmountHistoryController::class, "prepaidAmountEntry"])->name("main/customer/prepaidamountentryfrom");
+Route::prefix('customer')->name('customer.')->middleware(VerifyLogin::class)->group(function () {
+    // CUSTOMER => PREPAID AMOUNT HISTORY & ENTRY ROUTE
+    Route::controller(PrepaidAmountHistoryController::class)->group(function () {
+        Route::get("/prepaid-amount-history/{id?}", "index")->name("prepaidAmountHistory");
+        Route::get("/prepaid-amount-entry-from/{id?}", "prepaidAmountEntry")->name("prepaidAmountEntry");
+        Route::post("/save-prepaid-amount-entry-to-database", "savePrepaidAmountEntryToDatabase")->name("savePrepaidAmountEntryToDatabase");
+    });
 
-// // CUSTOMER => PREPAID AMOUNT HISTORY & ENTRY ROUTE
-// Route::get("/customer/customer-return", [ReturnAmountHistoryController::class, "index"])->name("main/customer/returnamounthistory");
-// Route::get("/customer/create-customer-return", [ReturnAmountHistoryController::class, "returnAmountEntry"])->name("main/customer/returnamountentryfrom");
+    // CUSTOMER => RETURN AMOUNT HISTORY & ENTRY ROUTE
+    Route::controller(ReturnAmountHistoryController::class)->group(function () {
+        Route::get("/return-amount-history", "index")->name("returnAmountHistory");
+        Route::get("/return-amount-entry-from", "returnAmountEntry")->name("returnAmountEntry");
+    });
+});
 
 Route::prefix("supplier")->name("supplier.")->middleware(VerifyLogin::class)->group(function () {
    
@@ -233,6 +244,7 @@ Route::prefix("warehouse")->name("warehouse.")->middleware(VerifyLogin::class)->
         Route::get("/create-warehouse", "createWarehouse")->name("createWarehouse");
         Route::post("/save-warehouse-to-database", "saveWarehouseToDatabase")->name('saveWarehouseToDatabase');
         Route::post("/update-warehouse", "updateWarehouse")->name('updateWarehouse');
+        Route::delete("/delete-warehouse", "deleteWarehouse")->name('deleteWarehouse');
     });
     
     // WAREHOUSE => OUTLET LIST ROUTE
@@ -240,6 +252,8 @@ Route::prefix("warehouse")->name("warehouse.")->middleware(VerifyLogin::class)->
         Route::get("/outlets-list", "index")->name("outletsList");
         Route::get("/create-outlet", "createOutlet")->name("createOutlet");
         Route::post("/save-outlet-to-database", "saveOutletToDatabase")->name('saveOutletToDatabase');
+        Route::post("/update-outlet", "updateOutlet")->name('updateOutlet');
+        Route::delete("/delete-outlet", "deleteOutlet")->name('deleteOutlet');
     });
 
     // WAREHOUSE => STOCK TRANSFER LIST ROUTE

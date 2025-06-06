@@ -22,8 +22,8 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/customer/customer-outstanding', 'text' => 'Customer Outstandings'],
-                ['url' => '/customer/customer-prepaid', 'text' => 'Prepaid Amount History']
+                ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
+                ['url' => route('customer.prepaidAmountHistory', $customer->id), 'text' => 'Prepaid Amount History']
             ]" />
 
             <!-- Table Start -->
@@ -31,37 +31,49 @@
                     <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                         <h3 class="font-semibold text-2xl">PREPAID AMOUNT HISTORY</h3>
                         <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-full border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                            <a href="/customer/create-customer-prepaid" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Prepaid Amount Entry</a>
+                            <a href="{{ route('customer.prepaidAmountEntry', $customer->id) }}" class="text-[#fff] font-semibold text-sm uppercase py-2 px-5">Prepaid Amount Entry</a>
                         </button>
                     </div>
                     <section class="flex px-5 mt-5 tracking-wide gap-x-20">
                         <div class="shrink-0">
                             <p>
                                 <span class="text-base font-bold">Customer :</span>
-                                <span>Jhon Dao</span>
+                                <span>{{ $customer->first_name }} {{ $customer->last_name }}</span>
                             </p>
                             <p>
                                 <span class="text-base font-bold">Address :</span>
-                                <span>Islampur, Islampur, MSD, WB, 0000000</span>
+                                <span>{{ $customer->address }}</span>
                             </p>
                         </div>
                         <div class="shrink-0">
                             <p>
-                                <span class="text-base font-bold">State Name :</span>
-                                <span>West Bengal</span>
+                                <span class="text-base font-bold">Phone :</span>
+                                <span>{{ $customer->mobile }}</span>
                             </p>
                             <p>
-                                <span class="text-base font-bold">Phone :</span>
-                                <span>7797063266</span>
+                                <span class="text-base font-bold">WhatsApp :</span>
+                                <span>{{ $customer->whatsapp_number }}</span>
                             </p>
                             <p>
                                 <span class="text-base font-bold">Email :</span>
-                                <span>admin@gmail.com</span>
+                                <span>{{ $customer->email }}</span>
                             </p>
                         </div>
                     </section>
                     <div class="px-5 py-5">
                         <div class="table-container">
+                        <div class="flex justify-end items-center space-x-4 mb-4">
+                            <!-- Buttons -->
+                            <x-export-controls />
+
+                            <!-- Search -->
+                            <div class="flex items-center space-x-2">
+                                <form method="GET" action="{{ route('customer.prepaidAmountHistory', $customer->id) }}">
+                                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search prepaid amount history..." class="px-3 py-2 border rounded-md">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Search</button>
+                                </form>
+                            </div>
+                        </div>
                             <table id="myTable" class="custom-data-table">
                                 <thead>
                                     <tr>
@@ -75,13 +87,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($prepaidAmountTransactions as $prepaidAmountTransaction)
                                     <tr>
-                                        <td>INV-00123</td>
-                                        <td>2025-04-16</td>
-                                        <td>John Doe</td>
-                                        <td>$250.00</td>
-                                        <td>Paid</td>
-                                        <td>Admin</td>
+                                        <td>{{ $prepaidAmountTransaction->date }}</td>
+                                        <td>{{ $prepaidAmountTransaction->referral_number }}</td>
+                                        <td>₹ {{ $prepaidAmountTransaction->amount }}</td>
+                                        <td>{{ $customer->first_name }} {{ $customer->last_name }}</td>
+                                        <td>{{ $prepaidAmountTransaction->particular }}</td>
+                                        <td>{{ $prepaidAmountTransaction->created_by_first_name }} {{ $prepaidAmountTransaction->created_by_last_name }}</td>
                                         <td>
                                             <div class="hs-dropdown relative inline-flex">
                                                 <button type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-xs rounded-full bg-[#abd7ff] text-[#0084ff] hover:bg-[#9bc3ff] focus:outline-hidden focus:bg-[#9bc3ff] disabled:opacity-50 disabled:pointer-events-none cursor-pointer font-bold uppercase" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
@@ -102,8 +115,12 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                            <!-- Pagination Links (Preserve search param) -->
+                            {{ $prepaidAmountTransactions->appends(['search' => request('search')])->links() }}
+
                         </div>
                     </div>
                  </div>
@@ -112,12 +129,6 @@
     @endsection
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
-
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-        } );
-    </script>
+   
 </body>
 </html>

@@ -14,7 +14,9 @@
         </button>
       </div>
 
-      <form class="p-4 space-y-3">
+      <form class="p-4 space-y-3" method="POST" action="{{ route('contacts.updateCustomer') }}">
+        @csrf
+        <input type="hidden" name="id" value="">
         <!-- First Name & Last Name -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -60,12 +62,12 @@
         <!-- To Pay / To Receive Radio Buttons -->
         <div class="grid sm:grid-cols-2 gap-2 h-fit">
           <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-            <input type="radio" name="balance_type" value="to_pay" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+            <input type="radio" value="to_pay" name="opening_balance_type" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
             <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">To Pay</span>
           </label>
 
           <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-            <input type="radio" name="balance_type" value="to_receive" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" checked>
+            <input type="radio" value="to_receive" name="opening_balance_type" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" checked>
             <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">To Receive</span>
           </label>
         </div>
@@ -76,25 +78,26 @@
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Credit Period (Days)</label>
             <select name="credit_period" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
               <option selected disabled>Select credit period</option>
-              <option value="7">7 Days</option>
+              <option value="5">5 Days</option>
+              <option value="10">10 Days</option>
               <option value="15">15 Days</option>
+              <option value="20">20 Days</option>
+              <option value="25">25 Days</option>
               <option value="30">30 Days</option>
-              <option value="45">45 Days</option>
-              <option value="60">60 Days</option>
-              <option value="90">90 Days</option>
             </select>
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Credit Limit</label>
             <select name="credit_limit" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
               <option selected disabled>Select credit limit</option>
-              <option value="1000">₹1,000</option>
-              <option value="5000">₹5,000</option>
-              <option value="10000">₹10,000</option>
-              <option value="25000">₹25,000</option>
-              <option value="50000">₹50,000</option>
-              <option value="100000">₹1,00,000</option>
-              <option value="unlimited">Unlimited</option>
+              <option value="500">₹ 500</option>
+              <option value="1000">₹ 1000</option>
+              <option value="1500">₹ 1500</option>
+              <option value="2000">₹ 2000</option>
+              <option value="2500">₹ 2500</option>
+              <option value="3000">₹ 3000</option>
+              <option value="3500">₹ 3500</option>
+              <option value="4000">₹ 4000</option>
             </select>
           </div>
         </div>

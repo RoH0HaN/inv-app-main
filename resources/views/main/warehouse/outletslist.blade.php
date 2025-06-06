@@ -25,6 +25,27 @@
                 ['url' => route('warehouse.outletsList'), 'text' => 'Outlet List']
             ]" />
 
+            <!-- For success message -->
+            @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             <!-- Table Start -->
             <div class="shadow-md rounded-lg bg-[#fff]">
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
@@ -77,11 +98,21 @@
                                             </button>
                                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white rounded-lg mt-2 divide-y divide-gray-200 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700 shadow-2xl" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-with-icons">
                                                 <div class="p-1">
-                                                    <button class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-warehouse-dialog" data-hs-overlay="#edit-warehouse-dialog">
+                                                    <button 
+                                                        class="flex items-center w-full cursor-pointer gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" 
+                                                        aria-haspopup="dialog" aria-expanded="false" aria-controls="edit-outlet-dialog" data-hs-overlay="#edit-outlet-dialog"
+                                                        data-outlet='@json($outlet)'
+                                                    >
                                                         <img src="/assets/table/edit.svg" alt="" class="w-4 h-4">
                                                         Edit
                                                     </button>
-                                                    <button class="flex items-center gap-x-3.5 py-2 px-3 min-w-full cursor-pointer rounded-lg text-sm text-red-500 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                                    <button class="flex items-center gap-x-3.5 py-2 px-3 min-w-full cursor-pointer rounded-lg text-sm text-red-500 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" 
+                                                        aria-haspopup="dialog" aria-expanded="false" aria-controls="common-delete-dialog"
+                                                        data-hs-overlay="#common-delete-dialog"
+                                                        data-id="{{ $outlet->id }}"
+                                                        data-name="{{ $outlet->organization_name }}"
+                                                        data-action="{{ route('warehouse.deleteOutlet') }}"
+                                                    >
                                                         <img src="/assets/table/trash.svg" alt="" class="w-4 h-4">
                                                         Delete
                                                     </button>
@@ -100,9 +131,69 @@
             </div>
             <!-- Table End -->
 
-            <x-edit-dialogs.outlet-edit-component />
+            <x-edit-dialogs.outlet-edit-component :warehouses="$warehouses" />
+            <x-delete-dialog />
         </section>
     @endsection
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editButtons = document.querySelectorAll('[data-hs-overlay="#edit-outlet-dialog"]');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const outlet = JSON.parse(this.getAttribute('data-outlet'));
+
+
+                    const modal = document.getElementById('edit-outlet-dialog');
+
+                    // Fill fields
+                    modal.querySelector('[name="id"]').value = outlet.id || '';
+                    modal.querySelector('[name="organization_name"]').value = outlet.organization_name || '';
+                    modal.querySelector('[name="mobile"]').value = outlet.mobile || '';
+                    modal.querySelector('[name="alternative_mobile"]').value = outlet.alternative_mobile || '';
+                    modal.querySelector('[name="email"]').value = outlet.email || '';
+                    modal.querySelector('[name="tax_number"]').value = outlet.tax_number || '';
+                    modal.querySelector('[name="address"]').value = outlet.address || '';
+                    modal.querySelector('[name="invoice_prefix_gst"]').value = outlet.invoice_prefix_gst || '';
+                    modal.querySelector('[name="invoice_number_gst"]').value = outlet.invoice_number_gst || '';
+                    modal.querySelector('[name="invoice_prefix_ngst"]').value = outlet.invoice_prefix_ngst || '';
+                    modal.querySelector('[name="invoice_number_ngst"]').value = outlet.invoice_number_ngst || '';
+                    modal.querySelector('[name="warehouse_id"]').value = outlet.warehouse_id;
+
+                    // Set image preview if exists
+                    const imagePreview = document.getElementById('outlet-image-preview');
+                    const imagePlaceholder = document.getElementById('outlet-image-placeholder');
+                    if (outlet.organization_logo) {
+                        imagePreview.src = "{{ url('/') }}/"+ outlet.organization_logo;
+                        imagePreview.classList.remove('hidden');
+                        imagePlaceholder.classList.add('hidden');
+                    } else {
+                        imagePreview.classList.add('hidden');
+                        imagePlaceholder.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('[data-hs-overlay="#common-delete-dialog"]');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const form = document.getElementById('delete-form');
+                    const nameEl = document.getElementById('delete-item-name');
+                    const idInput = document.getElementById('delete-item-id');
+
+                    // Set form action and values
+                    form.action = button.dataset.action;
+                    idInput.value = button.dataset.id;
+                    nameEl.textContent = button.dataset.name || 'this item';
+                });
+            });
+        });
+    </script>
+
 
     <!-- Main js For Table Start -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

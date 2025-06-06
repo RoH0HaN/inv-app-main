@@ -85,7 +85,7 @@
                             <tbody>
                             @foreach ($warehouses as $warehouse)
                                 <tr>
-                                    <td>{{ $warehouse->organization_name }} | {{ $warehouse->id }}</td>
+                                    <td>{{ $warehouse->organization_name }}</td>
                                     <td>50</td>
                                     <td>2000</td>
                                     <td>45,00000</td>
@@ -113,7 +113,14 @@
                                                         <img src="/assets/table/edit.svg" alt="" class="w-4 h-4">
                                                         Edit
                                                     </button>
-                                                    <button class="flex items-center gap-x-3.5 py-2 px-3 min-w-full cursor-pointer rounded-lg text-sm text-red-500 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                                    <button 
+                                                        class="flex items-center gap-x-3.5 py-2 px-3 min-w-full cursor-pointer rounded-lg text-sm text-red-500 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700"
+                                                        aria-haspopup="dialog" aria-expanded="false" aria-controls="common-delete-dialog"
+                                                        data-hs-overlay="#common-delete-dialog"
+                                                        data-id="{{ $warehouse->id }}"
+                                                        data-name="{{ $warehouse->organization_name }}"
+                                                        data-action="{{ route('warehouse.deleteWarehouse') }}"
+                                                    >
                                                         <img src="/assets/table/trash.svg" alt="" class="w-4 h-4">
                                                         Delete
                                                     </button>
@@ -133,6 +140,7 @@
             <!-- Table End -->
 
             <x-edit-dialogs.warehouse-edit-component />
+            <x-delete-dialog />
         </section>
 
     @endsection
@@ -141,31 +149,44 @@
             const editButtons = document.querySelectorAll('[data-hs-overlay="#edit-warehouse-dialog"]');
 
             editButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                console.log("Edit button clicked");
-                console.log( "ID: ",button.dataset.id);
-                console.log("ORG: ", button.dataset.organization);
-                console.log("IMAGE: ", button.dataset.image);
-                document.getElementById('edit-id').value = button.dataset.id || '';
-                document.getElementById('edit-organization').value = button.dataset.organization || '';
-                document.getElementById('edit-mobile').value = button.dataset.mobile || '';
-                document.getElementById('edit-alt-mobile').value = button.dataset.altMobile || '';
-                document.getElementById('edit-email').value = button.dataset.email || '';
-                document.getElementById('edit-tax').value = button.dataset.tax || '';
-                document.getElementById('edit-address').value = button.dataset.address || '';
+                button.addEventListener('click', () => {
+                    document.getElementById('edit-id').value = button.dataset.id || '';
+                    document.getElementById('edit-organization').value = button.dataset.organization || '';
+                    document.getElementById('edit-mobile').value = button.dataset.mobile || '';
+                    document.getElementById('edit-alt-mobile').value = button.dataset.altMobile || '';
+                    document.getElementById('edit-email').value = button.dataset.email || '';
+                    document.getElementById('edit-tax').value = button.dataset.tax || '';
+                    document.getElementById('edit-address').value = button.dataset.address || '';
 
-                // Optional: show preview image if image URL exists
-                const preview = document.getElementById('warehouse-image-preview');
-                const placeholder = document.getElementById('warehouse-image-placeholder');
-                if (button.dataset.image) {
-                    preview.src = "{{ url('/') }}/"+button.dataset.image;
-                    preview.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                } else {
-                    preview.classList.add('hidden');
-                    placeholder.classList.remove('hidden');
-                }
+                    // Optional: show preview image if image URL exists
+                    const preview = document.getElementById('warehouse-image-preview');
+                    const placeholder = document.getElementById('warehouse-image-placeholder');
+                    if (button.dataset.image) {
+                        preview.src = "{{ url('/') }}/"+button.dataset.image;
+                        preview.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+                    } else {
+                        preview.classList.add('hidden');
+                        placeholder.classList.remove('hidden');
+                    }
+                });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('[data-hs-overlay="#common-delete-dialog"]');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const form = document.getElementById('delete-form');
+                    const nameEl = document.getElementById('delete-item-name');
+                    const idInput = document.getElementById('delete-item-id');
+
+                    // Set form action and values
+                    form.action = button.dataset.action;
+                    idInput.value = button.dataset.id;
+                    nameEl.textContent = button.dataset.name || 'this item';
+                });
             });
         });
     </script>

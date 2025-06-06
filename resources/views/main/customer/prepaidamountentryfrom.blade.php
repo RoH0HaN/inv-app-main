@@ -38,52 +38,82 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/customer/customer-outstanding', 'text' => 'Customer Outstandings'],
-                ['url' => '/customer/customer-prepaid', 'text' => 'Prepaid Amount History'],
-                ['url' => '/customer/create-customer-prepaid', 'text' => 'Prepaid Amount Entry']
+                ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
+                ['url' => route('customer.prepaidAmountHistory', $selectedCustomerId), 'text' => 'Prepaid Amount History'],
+                ['url' => route('customer.prepaidAmountEntry'), 'text' => 'Prepaid Amount Entry']
             ]" />
+
+            <!-- For success message -->
+            @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                     <h3 class="font-semibold text-2xl">PREPAID AMOUNT DETAILS</h3>
                 </div>
                 <div class="py-5">
-                    <form id="supplierForm" action="#" class="space-y-6">
+                    <form id="supplierForm" action="{{ route('customer.savePrepaidAmountEntryToDatabase') }}" method="POST" class="space-y-6">
+                        @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 px-5">
                             <div>
                                 <label for="date" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Date</label>
-                                <input type="date" id="date" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                <input type="date" name="date" id="date" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                             </div>
                             <div>
                                 <label for="referral-no" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Referral No.</label>
                                 <div class="flex">
-                                    <input type="text" id="referral-no" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-l-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                    <input type="text" name="referral_number" id="referral-no" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-l-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     <button type="button" id="generate-referral" class="whitespace-nowrap px-6 py-3 bg-[#8b8b8b] text-white rounded-r-lg hover:bg-[#797979] transition-colors duration-300 font-semibold cursor-pointer">
                                         Auto
                                     </button>
                                 </div>
                             </div>
                             <div>
-                                <label for="supplier" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Customer</label>
-                                <input type="text" id="gst-no" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                <label class="block text-sm font-semibold mb-2 text-[#8d8d8d] dark:text-white">Customer</label>
+                                <select name="customer_id" id="customerSelect" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                @foreach ($customers as $customer)
+                                    <option value="{{ $customer->id }}"
+                                        @if (isset($selectedCustomerId) && $selectedCustomerId == $customer->id)
+                                            selected
+                                        @endif
+                                    >
+                                        {{ $customer->first_name }} {{ $customer->last_name }}
+                                    </option>
+                                @endforeach
+                                </select>
                             </div>
                             <div>
                                 <label for="particular" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Particular</label>
-                                <input type="text" id="particular" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                <input type="text" name="particular" id="particular" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                             </div>
                             <div>
                                 <label for="amount" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Amount</label>
-                                <input type="number" id="amount" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                <input type="number" name="amount" id="amount" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                             </div>
                             <!-- Select TCS Start -->
                             <div>
-                                <label class="block text-sm font-semibold mb-2 text-[#8d8d8d] dark:text-white">TCS</label>
-                                <select id="tcsSelect" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                    <option value="">Select TCS</option>
-                                    <option value="TCS@0.1%">TCS@0.1%</option>
-                                    <option value="TCS@0.5%">TCS@0.5%</option>
-                                    <option value="TCS@1%">TCS@1%</option>
-                                    <option value="TCS@2%">TCS@2%</option>
+                                <label class="block text-sm font-semibold mb-2 text-[#8d8d8d] dark:text-white">TCS/TDS</label>
+                                <select name="tcs_tds" id="tcsSelect" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                    @foreach ($tcsTds as $rates)
+                                        <option value="{{ $rates->rate }}">{{ $rates->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <!-- Select TCS End -->
@@ -91,6 +121,7 @@
                                 <label for="payment-note" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Payment Note</label>
                                 <textarea 
                                     id="payment-note" 
+                                    name="note"
                                     rows="3" 
                                     class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
                                     required
@@ -127,7 +158,19 @@
             
             $('#tcsSelect').on('change', function() {
                 const selectedTcs = $(this).val();
-                console.log("Selected TCS:", selectedTcs);
+                console.log("Selected Customer:", selectedTcs);
+            });
+
+            $('#customerSelect').select2({
+                placeholder: "Select Customer",
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('#customerSelect').parent()
+            });
+            
+            $('#customerSelect').on('change', function() {
+                const selectedCustomer = $(this).val();
+                console.log("Selected Customer:", selectedCustomer);
             });
 
             // Generate random referral code (NOT ALLOWED)

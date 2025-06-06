@@ -38,9 +38,9 @@
             <x-breadcrumb :links="[
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Customer'],
-                ['url' => '/customer/customer-outstanding', 'text' => 'Customer Outstandings'],
-                ['url' => '/customer/customer-return', 'text' => 'Return Amount History'],
-                ['url' => '/customer/create-customer-return', 'text' => 'Return Amount Entry']
+                ['url' => '/main/customer/customeroutstandings', 'text' => 'Customer Outstandings'],
+                ['url' => route('customer.returnAmountHistory'), 'text' => 'Return Amount History'],
+                ['url' => route('customer.returnAmountEntry'), 'text' => 'Return Amount Entry']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

@@ -77,6 +77,12 @@ class WarehouseListController extends Controller
 
     
     public function updateWarehouse(Request $req){
+        // Fetch warehouse record
+        $warehouse = DB::table('warehouses')->where('id', $req->id)->first();
+        if (!$warehouse) {
+            return redirect()->back()->with('error', 'Warehouse not found!');
+        }
+
         // validating the data
         $req->validate([
             'organization_name' => 'required',
@@ -87,12 +93,6 @@ class WarehouseListController extends Controller
             'address' => 'required',
         ]);
 
-        // Fetch warehouse record
-        $warehouse = DB::table('warehouses')->where('id', $req->id)->first();
-
-        if (!$warehouse) {
-            return redirect()->back()->with('error', 'Warehouse not found!');
-        }
 
         $imagePath = $warehouse->organization_logo; // keep current logo by default
 
@@ -126,6 +126,26 @@ class WarehouseListController extends Controller
         }
 
         return redirect()->back()->with('success', 'Warehouse updated successfully!');
+    }
+
+
+    public function deleteWarehouse(Request $request){
+        $id = $request->id;
+
+        $warehouse = DB::table('warehouses')->where('id', $id)->first();
+
+        if (!$warehouse) {
+            return redirect()->back()->with('error', 'Warehouse not found.');
+        }
+
+        // Optional: Delete logo if exists
+        if ($warehouse->organization_logo && file_exists(public_path($warehouse->organization_logo))) {
+            unlink(public_path($warehouse->organization_logo));
+        }
+
+        DB::table('warehouses')->where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Warehouse deleted successfully.');
     }
 
 }
