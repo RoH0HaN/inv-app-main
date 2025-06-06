@@ -98,10 +98,6 @@ Route::prefix("contacts")->name("contacts.")->middleware(VerifyLogin::class)->gr
     });
 });
 
-// SALE => INVOICES ROUTE
-// Route::get("/sale/invoices", [InvoicesController::class, "index"])->name("main/sale/invoices");
-// Route::get("/sale/create-sale", [InvoicesController::class, "createSale"])->name("main/sale/createsale");
-// Route::get("/sale/complete-payment", [InvoicesController::class, "completePayment"])->name("main/sale/completepayment");
 
 Route::prefix("sale")->name("sale.")->middleware(VerifyLogin::class)->group(function () {
     // SALE => SALE BILLS ROUTE & CUSTOMER => UNPAID SALE BILLS
@@ -110,13 +106,11 @@ Route::prefix("sale")->name("sale.")->middleware(VerifyLogin::class)->group(func
         Route::get("/create-sale", "createSale")->name("createSale");
         Route::get("/complete-payment", "completePayment")->name("completePayment");
     });
-
+    
     // SALE => PAYMENT IN ROUTE
     Route::get("/payment-in", [PaymentInController::class, "index"])->name("paymentIn");
 });
 
-// SALE => PAYMENT IN ROUTE
-// Route::get("/sale/payment-in", [PaymentInController::class, "index"])->name("main/sale/paymentin");
 
 Route::prefix("purchase")->name("purchase.")->middleware(VerifyLogin::class)->group(function () {
     // PURCHASE => PURCHASE BILLS ROUTE & SUPPLIER => UNPAID PURCHASE BILLS
@@ -128,13 +122,6 @@ Route::prefix("purchase")->name("purchase.")->middleware(VerifyLogin::class)->gr
     // PURCHASE => PAYMENT OUT ROUTE
     Route::get("/payment-out", [PaymentOutController::class, "index"])->name("paymentOut");
 });
-
-// PURCHASE => PURCHASE BILLS ROUTE & SUPPLIER => UNPAID PURCHASE BILLS
-// Route::get("/purchase/purchase-bills", [PurchaseBillsController::class, "index"])->name("main/purchase/purchasebills");
-// Route::get("/purchase/create-purchase", [PurchaseBillsController::class, "createPurchase"])->name("main/purchase/createpurchase");
-
-// PURCHASE => PAYMENT OUT ROUTE
-// Route::get("/purchase/payment-out", [PaymentOutController::class, "index"])->name("main/purchase/paymentout");
 
 
 Route::prefix("customer")->name("customer.")->middleware(VerifyLogin::class)->group(function () {
@@ -159,14 +146,6 @@ Route::prefix("customer")->name("customer.")->middleware(VerifyLogin::class)->gr
     });
 });
 
-// // CUSTOMER => REPORT BY ITEM ROUTE
-// Route::get("/customer/report-by-item", [CustomerReportByItemController::class, "index"])->name("main/customer/reportbyitem");
-
-// // CUSTOMER => CUSTOMER STATEMENT ROUTE
-// Route::get("/customer/customer-statement", [CustomerStatementController::class, "index"])->name("main/customer/customerstatement");
-
-// // CUSTOMER => CUSTOMER OUTSTANDINGS ROUTE
-// Route::get("/customer/customer-outstanding", [CustomerOutstandingsController::class, "index"])->name("main/customer/customeroutstandings");
 
 Route::prefix('customer')->name('customer.')->middleware(VerifyLogin::class)->group(function () {
     // CUSTOMER => PREPAID AMOUNT HISTORY & ENTRY ROUTE
@@ -193,14 +172,6 @@ Route::prefix("supplier")->name("supplier.")->middleware(VerifyLogin::class)->gr
     });
 });
 
-// // SUPPLIER => REPORT BY ITEM ROUTE
-// Route::get("/supplier/report-by-item", [SupplierReportByItemController::class, "index"])->name("main/supplier/reportbyitem");
-
-// // SUPPLIER => SUPPLIER STATEMENT ROUTE
-// Route::get("/supplier/supplier-statement", [SupplierStatementController::class, "index"])->name("main/supplier/supplierstatement");
-
-// // SUPPLIER => SUPPLIER OUTSTANDINGS ROUTE
-// Route::get("/supplier/supplier-outstanding", [SupplierOutstandingsController::class, "index"])->name("main/supplier/supplieroutstandings");
 
 Route::prefix("items")->name("items.")->middleware(VerifyLogin::class)->group(function () {
    
@@ -224,18 +195,6 @@ Route::prefix("items")->name("items.")->middleware(VerifyLogin::class)->group(fu
 
 });
 
-// // ITEMS => ITEM LIST ROUTE
-// Route::get("/items/item-list", [ItemListController::class, "index"])->name("main/items/itemlist");
-// Route::get("/items/create-item", [ItemListController::class, "createItem"])->name("main/items/createitem");
-
-// // ITEMS => CATEGORY LIST ROUTE
-// Route::get("/items/category-list", [CategoryListController::class, "index"])->name("main/items/categorylist");
-// Route::get("/items/create-category", [CategoryListController::class, "createCategory"])->name("main/items/createcategory");
-// Route::post("/main/items/save-category-to-database", [CategoryListController::class, "saveCategoryToDatabase"])->name('main.items.saveCategoryToDatabase');
-
-// // ITEMS => BRAND LIST ROUTE
-// Route::get("/items/brand-list", [BrandListController::class, "index"])->name("main/items/brandlist");
-// Route::get("/items/create-brand", [BrandListController::class, "createBrand"])->name("main/items/createbrand");
 
 Route::prefix("warehouse")->name("warehouse.")->middleware(VerifyLogin::class)->group(function () {
     // WAREHOUSE => WAREHOUSE LIST ROUTE
@@ -292,32 +251,6 @@ Route::prefix("reports")->name("reports.")->middleware(VerifyLogin::class)->grou
 });
 
 
-
-// REPORTS => BILL WISE PROFIT ROUTE
-// Route::get("/reports/bill-wise-profit", [BillWiseProfitController::class, "index"])->name("main/reports/billwiseprofit");
-
-// // REPORTS => SALES SUMMERY ROUTE
-// Route::get("/reports/sales-summery", [SalesSummeryController::class, "index"])->name("main/reports/salessummery");
-
-// // REPORTS => PURCHASE SUMMERY ROUTE
-// Route::get("/reports/purchase-summery", [PurchaseSummeryController::class, "index"])->name("main/reports/purchasesummery");
-
-// // REPORTS => DAYBOOK ROUTE
-// Route::get("/reports/daybook", [DayBookController::class, "index"])->name("main/reports/daybook");
-
-// // REPORTS => STOCK REPORT ROUTE
-// Route::get("/reports/stock-report", [StockReportController::class, "index"])->name("main/reports/stockreport");
-
-// // REPORTS => PARTY REPORT ROUTE
-// Route::get("/reports/party-report", [PartyReportController::class, "index"])->name("main/reports/partyreport");
-// Route::get("/reports/view-statement", [PartyReportController::class, "viewStatement"])->name("main/reports/viewstatement");
-
-// // REPORTS => GST REPORT ROUTE
-// Route::get("/reports/gst-report", [GstReportController::class, "index"])->name("main/reports/gstreport");
-
-// // REPORTS => EXPENSE REPORT ROUTE
-// Route::get("/reports/expense-report", [ExpenseReportController::class, "index"])->name("main/reports/expensereport");
-
 Route::prefix("expenses")->name("expenses.")->middleware(VerifyLogin::class)->group(function () {
 
     // EXPENSES => EXPENSE LIST ROUTE
@@ -333,21 +266,6 @@ Route::prefix("expenses")->name("expenses.")->middleware(VerifyLogin::class)->gr
     });
 });
 
-// // EXPENSES => EXPENSE LIST ROUTE
-// Route::get("/expenses/expense-list", [ExpenseListController::class, "index"])->name("main/expenses/expenselist");
-// Route::get("/expenses/create-expense", [ExpenseListController::class, "createExpense"])->name("main/expenses/createexpense");
-
-// // EXPENSES => EXPENSE TYPE ROUTE
-// Route::get("/expenses/expense-type", [ExpenseTypeController::class, "index"])->name("main/expenses/expensetype");
-// Route::get("/expenses/create-expense-type", [ExpenseTypeController::class, "createExpenseType"])->name("main/expenses/createexpensetype");
-
-// CASH IN HAND => CASH IN HAND ROUTE
-// Route::get("/cash-bank/cash-in-hand", [CashInHandController::class, "index"])->name("main/cashandbank/cashinhand");
-
-// CASH IN HAND => BANKS ROUTE
-// Route::get("/cash-bank/banks", [BanksController::class, "index"])->name("main/cashandbank/banks");
-// Route::get("/cash-bank/add-bank-account", [BanksController::class, "addBankAccount"])->name("main/cashandbank/add-bank-account");
-// Route::get("/cash-bank/account-details", [BanksController::class, "viewAccountDetails"])->name("main/cashandbank/account-details");
 
 Route::prefix("cash-bank")->name("cash-bank.")->middleware(VerifyLogin::class)->group(function () {
 
@@ -363,8 +281,6 @@ Route::prefix("cash-bank")->name("cash-bank.")->middleware(VerifyLogin::class)->
    });
 });
 
-// USERS => PROFILE ROUTE
-// Route::get("/users/profile", [ProfileController::class, "index"])->name("main/users/profile");
 
 // USERS => ALL USERS ROUTE
 Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(function () {
@@ -390,18 +306,6 @@ Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(fu
 
 });
 
-// USERS => EMPLOYEE ROUTE
-// Route::get("/users/employee-list", [EmployeeController::class, "index"])->name("main/users/employeelist");
-// Route::get("/users/create-employee", [EmployeeController::class, "createEmployee"])->name("main/users/createemployee");
-
-// // TARGET => ORGANIZATION TARGET ROUTE
-// Route::get("/target/organization-target", [OrganizationController::class, "index"])->name("main/target/organizationtarget");
-// Route::get("/target/create-organization-target", [OrganizationController::class, "createOrganizationTarget"])->name("main/target/createorganizationtarget");
-
-// // TARGET => OUTLET TARGET ROUTE
-// Route::get("/target/outlet-target", [OutletController::class, "index"])->name("main/target/outlettarget");
-// Route::get("/target/create-outlet-target", [OutletController::class, "createOutletTarget"])->name("main/target/createoutlettarget");
-
 
 Route::prefix("target")->name("target.")->middleware(VerifyLogin::class)->group(function () {
     // ORGANIZATION TARGET ROUTE
@@ -417,8 +321,6 @@ Route::prefix("target")->name("target.")->middleware(VerifyLogin::class)->group(
    });
 });
 
-// SETTINGS => ORGANIZATION ROUTE
-// Route::get("/settings/organization", [SettingsOrganizationController::class, "index"])->name("main/settings/organization");
 
 
 Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->group(function () {
@@ -462,21 +364,3 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
     });
 
 });
-
-
-// SETTINGS => UNIT LIST ROUTE
-// Route::get("/settings/unit-list", [UnitListController::class, "index"])->name("main/settings/unitlist");
-// Route::get("/settings/create-unit", [UnitListController::class, "createUnit"])->name("main/settings/createunit");
-
-// // SETTINGS => TCS TDS RATES ROUTE
-// Route::get("/settings/tcs-tds-rates", [TcsTdsRatesController::class, "index"])->name("main/settings/tcs-tds-rates");
-// Route::get("/settings/create-tcs-tds", [TcsTdsRatesController::class, "createTcsTds"])->name("main/settings/create-tcs-tds");
-
-// // SETTINGS => PAYMENT OPTIONS ROUTE
-// Route::get("/settings/payment-options", [PaymentOptionController::class, "index"])->name("main/settings/payment-options");
-// Route::get("/settings/create-payment-option", [PaymentOptionController::class, "createPaymentOption"])->name("main/settings/create-payment-option");
-
-// // SETTINGS => FINANCES LIST ROUTE
-// Route::get("/settings/finances-list", [FinanceController::class, "index"])->name("main/settings/finances-list");
-// Route::get("/settings/create-finance", [FinanceController::class, "createFinance"])->name("main/settings/create-finance");
-// Route::get("/settings/finance-details-page", [FinanceController::class, "viewFinanceDetails"])->name("main/settings/finance-details-page");
