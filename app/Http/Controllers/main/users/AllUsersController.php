@@ -19,7 +19,6 @@ class AllUsersController extends Controller
     }
 
     public function saveUserToDatabase(Request $req) {
-        
         // Validating the input
         $req->validate([
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

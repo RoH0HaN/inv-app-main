@@ -239,9 +239,16 @@ Route::get("/main/target/createoutlettarget", [OutletController::class, "createO
 // SETTINGS => ORGANIZATION ROUTE
 Route::get("/main/settings/organization", [SettingsOrganizationController::class, "index"])->name("main/settings/organization");
 
-// SETTINGS => TAX RATES ROUTE
-Route::get("/main/settings/taxrates", [TaxRatesController::class, "index"])->name("main/settings/taxrates");
-Route::get("/main/settings/createtax", [TaxRatesController::class, "createTax"])->name("main/settings/createtax");
+
+Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->group(function () {
+    // SETTINGS => TAX RATES ROUTE
+    Route::controller(TaxRatesController::class)->group(function () {
+    Route::get("/tax-rates", 'index')->name("taxRates");
+    Route::get("/create-tax", 'createTax')->name("createTax");
+    Route::post('/save-tax-to-database','saveTaxToDatabase')->name("saveTaxToDatabase");
+    Route::post('/update-tax-to-database','updateTaxToDatabase')->name("updateTaxToDatabase");
+    });
+});
 
 // SETTINGS => UNIT LIST ROUTE
 Route::get("/main/settings/unitlist", [UnitListController::class, "index"])->name("main/settings/unitlist");

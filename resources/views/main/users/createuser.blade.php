@@ -45,7 +45,7 @@
                     <h3 class="font-semibold text-2xl">USER DETAILS</h3>
                 </div>
                 <div class="py-5 px-5">
-                    <form id="" action="{{ route('main.users.saveUserToDatabase') }}" enctype="multipart/form-data" method="POST" class="space-y-6">
+                    <form id="" action="{{ route('users.saveUserToDatabase') }}" enctype="multipart/form-data" method="POST" class="space-y-6">
                         @csrf
                         <!-- Logo Section Start -->
                         <p class="block text-base font-semibold mb-3 text-[#8d8d8d] dark:text-white">User Picture</p>
