@@ -17,7 +17,7 @@
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Item'],
                 ['url' => '/items/category-list', 'text' => 'Category List'],
-                ['url' => '/items/create-item', 'text' => 'Create Category']
+                ['url' => '/items/create-category', 'text' => 'Create Category']
             ]" />
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">

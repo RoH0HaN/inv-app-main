@@ -57,7 +57,7 @@
                 <div class="px-5 py-5">
                     <div class="table-container">
 
-                    <div class="flex justify-end items-center space-x-4 mb-4">
+                        <div class="flex justify-end items-center space-x-4 mb-4">
                             <!-- Buttons -->
                             <x-export-controls />
 

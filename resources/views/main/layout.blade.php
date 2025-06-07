@@ -102,15 +102,22 @@
                             <button id="hs-dropdown-contacts" type="button"
                             class="size-11 cursor-pointer inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none dark:text-white"
                             aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-                                <img class="shrink-0 size-11 rounded-full"
-                                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                                    alt="Avatar">
+                            <img class="shrink-0 size-11 rounded-full"
+                                src="{{ Auth::check() && Auth::user()->profile_picture 
+                                        ? url(Auth::user()->profile_picture) 
+                                        : 'https://i.pravatar.cc/150?u=' . Str::random(10) }}"
+                                alt="Avatar">
+
+
                             </button>
 
                             <div class="flex flex-col items-center">
-                                <span class="font-bold text-[14.5px]">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
-                                <span>{{ strtoupper(Auth::user()->role)
-                                }}</span>
+                                <span class="font-bold text-[14.5px]">
+                                    {{ Auth::check() ? Auth::user()->first_name . ' ' . Auth::user()->last_name : 'UNKNOWN' }}
+                                </span>
+                                <span>
+                                    {{ Auth::check() ? strtoupper(Auth::user()->role) : 'UNKNOWN' }}
+                                </span>
                             </div>
                         </div>
 
@@ -118,8 +125,9 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-contacts">
                             <div class="py-3 px-5 bg-gray-100 rounded-t-lg dark:bg-neutral-700">
                                 <p class="text-sm text-gray-500 dark:text-neutral-500">Signed in as</p>
-                                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">{{ Auth::user()->email }}</p>
+                                <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">{{ Auth::check() ? Auth::user()->email : "NEED TO LOGIN" }}</p>
                             </div>
+                            @if(Auth::check())
                             <div class="p-1.5 space-y-0.5">
                                 <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700 dark:focus:text-neutral-300"
                                     href="/users/profile">
@@ -132,6 +140,7 @@
                                     Logout
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <!-- Profile Dropdown Section End -->
@@ -514,7 +523,7 @@
                                 <ul class="ps-8 pt-1 space-y-1">
                                     <li>
                                         <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-neutral-200"
-                                            href="/items/item-list">
+                                            href="/items/items-list">
                                             Item List
                                         </a>
                                     </li>

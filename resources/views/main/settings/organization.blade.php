@@ -38,10 +38,9 @@
                                 </button>
                             </div>
                             <div class="px-5 py-3 grid lg:grid-cols-2 gap-8">
-                                <x-outlet-card-component-settings-page />
-                                <x-outlet-card-component-settings-page />
-                                <x-outlet-card-component-settings-page />
-                                <x-outlet-card-component-settings-page />
+                                @foreach ($outlets as $outlet)
+                                    <x-outlet-card-component-settings-page :outlet="$outlet" />
+                                @endforeach
                             </div>
                         </section>
                     </div>
@@ -52,16 +51,17 @@
                             <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
                                 <h3 class="font-semibold text-2xl">BILL COMMON DETAILS</h3>
                             </div>
-                            <form id="" action="#" class="space-y-6 px-5 py-3">
+                            <form id="" action="{{ route('settings.updateEssentials') }}" enctype="multipart/form-data" method="POST" class="space-y-6 px-5 py-3">
+                                @csrf
                                 <!-- Signature Section Start -->
                                 <p class="block text-base font-semibold mb-3 text-[#8d8d8d] dark:text-white">Profile Picture</p>
                                 <div class="flex gap-10">
-                                    <img src="/assets/settings/sign.png" alt="" class="border border-gray-400 rounded w-32 h-32 aspect-square object-cover object-center" />
+                                    <img id="previewImage" src="{{ $signature ? url($signature) : '/assets/settings/sign.png' }}" alt="" class="border border-gray-400 rounded w-32 h-32 aspect-square object-cover object-center" />
                                     <div>
                                         <div class="flex gap-5">
                                             <div>
                                                 <label class="block">
-                                                    <input type="file" accept=".jpg,.jpeg,.gif,.png" class="block w-[90px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
+                                                    <input id="imageInput" type="file" name="signature" accept=".jpg,.jpeg,.gif,.png" class="block w-[110px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
                                                         file:me-4 file:py-2.5 file:px-4
                                                         file:rounded-lg file:border-0
                                                         file:text-sm file:font-semibold
@@ -84,13 +84,14 @@
                                 <!-- Signature Section End -->
 
                                 <div>
-                                    <label for="discription" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Terms & Conditions</label>
+                                    <label for="description" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Terms & Conditions</label>
                                     <textarea 
-                                        id="discription" 
+                                        id="description" 
+                                        name="t_and_c"
                                         rows="10" 
                                         class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" 
                                         required
-                                    ></textarea>
+                                    >{{ $t_and_c }}</textarea>
                                 </div>
 
                                 <!-- Submit Button Start -->
@@ -109,8 +110,33 @@
                 </div>
             </div>
 
-            <x-edit-dialogs.outlet-edit-component />
+            <x-edit-dialogs.outlet-edit-component :warehouses="$warehouses" />
         </section>
     @endsection
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageInput = document.getElementById('imageInput');
+            const previewImage = document.getElementById('previewImage');
+            const defaultImage = "/assets/settings/sign.png";
+
+            imageInput.addEventListener('change', function (event) {
+                console.log('image changed');
+                
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            window.resetImage = function () {
+                imageInput.value = '';
+                previewImage.src = defaultImage;
+            };
+        });
+    </script>
 </body>
 </html>

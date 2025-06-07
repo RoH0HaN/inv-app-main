@@ -108,7 +108,7 @@
                                     <option selected disabled>Select Role</option>
                                     <option value="user">USER</option>
                                     <option value="admin">ADMIN</option>
-                                    <option value="viewer">Viewer</option>
+                                    <option value="viewer">VIEWER</option>
                                 </select>
                             </div>
                             <div>
@@ -119,24 +119,48 @@
                                     <option value="inactive">INACTIVE</option>
                                 </select>
                             </div>
-
-                            <div class="flex gap-x-20 items-center col-span-2 mt-3">
-                                <div class="flex items-center">
-                                    <input type="radio" name="hs-radio-group" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-group-1" checked="">
-                                    <label for="hs-radio-group-1" class="text-base font-bold text-black ms-2 dark:text-neutral-400">Warehouse</label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input type="radio" name="hs-radio-group" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-group-2">
-                                    <label for="hs-radio-group-2" class="text-base font-bold text-black ms-2 dark:text-neutral-400">Shop One</label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input type="radio" name="hs-radio-group" class="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-radio-group-3">
-                                    <label for="hs-radio-group-3" class="text-base font-bold text-black ms-2 dark:text-neutral-400">Shop Two</label>
-                                </div>
-                            </div>
                         </section>
+
+
+                            <div id="location-section" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+    
+                                <!-- Warehouses Section -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
+                                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                        <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs rounded-md">Warehouses</span>
+                                    </p>
+                                    <div class="space-y-3">
+                                        @forelse($warehouses as $warehouse)
+                                            <label for="warehouse_{{ $warehouse->id }}" class="flex items-center space-x-2 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900 p-2 rounded-md transition">
+                                                <input type="radio" name="location_id" class="location-radio warehouse-radio text-blue-600 focus:ring-blue-500" 
+                                                    value="warehouse_{{ $warehouse->id }}" id="warehouse_{{ $warehouse->id }}">
+                                                <span class="text-gray-800 dark:text-gray-100">{{ $warehouse->organization_name }}</span>
+                                            </label>
+                                        @empty
+                                            <p class="text-sm text-gray-500">No warehouses available.</p>
+                                        @endforelse
+                                    </div>
+                                </div>
+
+                                <!-- Outlets Section -->
+                                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
+                                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                        <span class="inline-block px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs rounded-md">Outlets</span>
+                                    </p>
+                                    <div class="space-y-3">
+                                        @forelse($outlets as $outlet)
+                                            <label for="outlet_{{ $outlet->id }}" class="flex items-center space-x-2 cursor-pointer hover:bg-green-50 dark:hover:bg-green-900 p-2 rounded-md transition">
+                                                <input type="radio" name="location_id" class="location-radio outlet-radio text-green-600 focus:ring-green-500" 
+                                                    value="outlet_{{ $outlet->id }}" id="outlet_{{ $outlet->id }}">
+                                                <span class="text-gray-800 dark:text-gray-100">{{ $outlet->organization_name }}</span>
+                                            </label>
+                                        @empty
+                                            <p class="text-sm text-gray-500">No outlets available.</p>
+                                        @endforelse
+                                    </div>
+                                </div>
+
+                            </div>
                             
                         <!-- Submit Button Start -->
                         <div class="pt-10 flex gap-5">
@@ -154,6 +178,38 @@
             </div>
         </section>
     @endsection
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const roleSelect = document.getElementById('role');
+            const locationRadios = document.querySelectorAll('.location-radio');
+            const warehouseRadios = document.querySelectorAll('.warehouse-radio');
+            const outletRadios = document.querySelectorAll('.outlet-radio');
+
+            function updateLocationAccess() {
+                const role = roleSelect.value;
+
+                if (role === 'user') {
+                    // Enable only one selection (radio group ensures that)
+                    warehouseRadios.forEach(radio => radio.disabled = false);
+                    outletRadios.forEach(radio => radio.disabled = false);
+                } else {
+                    // Disable all location selections for admin or viewer
+                    locationRadios.forEach(radio => {
+                        radio.checked = false;
+                        radio.disabled = true;
+                    });
+                }
+            }
+
+            // Run once on page load in case of old value
+            updateLocationAccess();
+
+            // Watch for role change
+            roleSelect.addEventListener('change', updateLocationAccess);
+        });
+    </script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

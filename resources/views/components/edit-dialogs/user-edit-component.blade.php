@@ -1,3 +1,5 @@
+@props(['warehouses' => [], 'outlets' => []])
+
 <div id="edit-user-dialog" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="edit-user-dialog-label">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-xl sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
     <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70 w-full">
@@ -14,7 +16,8 @@
         </button>
       </div>
 
-      <form class="p-4 space-y-3">
+      <form class="p-4 space-y-3" method="POST" enctype="multipart/form-data" action="{{ route('users.updateUser') }}">
+        @csrf
         <!-- Profile Image -->
         <div class="flex flex-col items-center">
           <div class="relative size-24 rounded-full bg-gray-100 mb-3 overflow-hidden dark:bg-neutral-700">
@@ -34,6 +37,7 @@
           </label>
         </div>
 
+        <input type="hidden" id="edit-id" name="id">
         <!-- First Name & Last Name -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -66,41 +70,67 @@
 
         <!-- Role & Status -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+        <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Role</label>
-            <select name="role" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
+            <select id="role" name="role" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                <option selected disabled>Select Role</option>
+                <option value="user">USER</option>
+                <option value="admin">ADMIN</option>
+                <option value="viewer">VIEWER</option>
             </select>
-          </div>
-          <div>
+        </div>
+        <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Status</label>
-            <select name="status" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+            <select id="status" name="status" class="py-2.5 sm:py-3 px-4 pe-9 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                <option selected disabled>Select Status</option>
+                <option value="active">ACTIVE</option>
+                <option value="inactive">INACTIVE</option>
             </select>
-          </div>
+        </div>
         </div>
 
         <!-- Location Radio Buttons -->
-        <div>
-          <div class="grid sm:grid-cols-3 gap-2 h-fit">
-            <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-              <input type="radio" name="location" value="warehouse" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-              <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">Warehouse</span>
-            </label>
-
-            <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-              <input type="radio" name="location" value="shop_one" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-              <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">Shop One</span>
-            </label>
-
-            <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-              <input type="radio" name="location" value="shop_two" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-              <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">Shop Two</span>
-            </label>
+        <div id="location-section" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+    
+          <!-- Warehouses Section -->
+          <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
+              <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <span class="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs rounded-md">Warehouses</span>
+              </p>
+              <div class="space-y-3">
+                  @forelse($warehouses as $warehouse)
+                      <label for="warehouse_{{ $warehouse->id }}" class="flex items-center space-x-2 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900 p-2 rounded-md transition">
+                          <input type="radio" name="location_id" class="location-radio warehouse-radio text-blue-600 focus:ring-blue-500" 
+                              value="warehouse_{{ $warehouse->id }}" id="warehouse_{{ $warehouse->id }}">
+                          <span class="text-gray-800 dark:text-gray-100">{{ $warehouse->organization_name }}</span>
+                      </label>
+                  @empty
+                      <p class="text-sm text-gray-500">No warehouses available.</p>
+                  @endforelse
+              </div>
           </div>
+
+          <!-- Outlets Section -->
+          <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
+              <p class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                  <span class="inline-block px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs rounded-md">Outlets</span>
+              </p>
+              <div class="space-y-3">
+                  @forelse($outlets as $outlet)
+                      <label for="outlet_{{ $outlet->id }}" class="flex items-center space-x-2 cursor-pointer hover:bg-green-50 dark:hover:bg-green-900 p-2 rounded-md transition">
+                          <input type="radio" name="location_id" class="location-radio outlet-radio text-green-600 focus:ring-green-500" 
+                              value="outlet_{{ $outlet->id }}" id="outlet_{{ $outlet->id }}">
+                          <span class="text-gray-800 dark:text-gray-100">{{ $outlet->organization_name }}</span>
+                      </label>
+                  @empty
+                      <p class="text-sm text-gray-500">No outlets available.</p>
+                  @endforelse
+              </div>
+          </div>
+
         </div>
+
+        
 
         <!-- Form Actions -->
         <div class="flex justify-end gap-x-2 pt-4">

@@ -158,6 +158,7 @@ Route::prefix("items")->name("items.")->middleware(VerifyLogin::class)->group(fu
     // ITEMS => ITEMS LIST ROUTE
     Route::controller(ItemListController::class)->group(function () {
         Route::get("/items-list", 'index')->name("itemsList");
+        Route::get("/create-item", 'createItem')->name("createItem");
     });
 
     // ITEMS => CATEGORY LIST ROUTE
@@ -268,6 +269,8 @@ Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(fu
     // USERS => PROFILE ROUTE
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index')->name('profile');
+        Route::post('/update-profile', 'updateProfile')->name('updateProfile');
+        Route::post('/change-password', 'changePassword')->name('changePassword');
     });
 
     // USERS => ALL USERS ROUTE
@@ -275,6 +278,8 @@ Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(fu
         Route::get('/users-list', 'index')->name('usersList');
         Route::get('/create-user', 'createUser')->name('createUser');
         Route::post('/save-user-to-database', 'saveUserToDatabase')->name('saveUserToDatabase');
+        Route::post('/update-user', 'updateUser')->name('updateUser');
+        Route::delete('/delete-user', 'deleteUser')->name('deleteUser');
     });
 
     // USERS => EMPLOYEE ROUTE
@@ -308,6 +313,7 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
     // ORGANIZATION ROUTE
     Route::controller(SettingsOrganizationController::class)->group(function () {
         Route::get("/organization", 'index')->name("organization");
+        Route::post("/update-essentials", 'updateEssentials')->name("updateEssentials");
     });
 
     // TAX RATES ROUTE

@@ -54,27 +54,46 @@ class CustomerController extends Controller
             'credit_period' => 'required|integer',
         ]);
 
-        DB::table('customers')->insert([
-            'first_name' => $req->first_name,
-            'last_name' => $req->last_name,
-            'email' => $req->email,
-            'mobile' => $req->mobile,
-            'whatsapp_number' => $req->whatsapp_number,
-            'address' => $req->address,
-            'opening_balance_type' => $req->opening_balance_type,
-            'due_amount' => $req->opening_balance_type == 'to_receive' ? (double) $req->opening_balance : 0,
-            'advance_amount' => $req->opening_balance_type == 'to_pay' ? (double) $req->opening_balance : 0,
-            'due_date' => $req->opening_balance_type == 'to_receive' && (double) $req->opening_balance > 0
-                ? now()->addDays((int) $req->credit_period)
-                : null,
-            'credit_period' => (int) $req->credit_period,
-            'credit_limit' => (double) $req->credit_limit ?? 0,
-            'created_by_id' => Auth::id(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        try {
+            DB::transaction();
 
-        return redirect()->back()->with('success', 'Customer created successfully!');
+            $customerId = DB::table('customers')->insert([
+                'first_name' => $req->first_name,
+                'last_name' => $req->last_name,
+                'email' => $req->email,
+                'mobile' => $req->mobile,
+                'whatsapp_number' => $req->whatsapp_number,
+                'address' => $req->address,
+                'opening_balance_type' => $req->opening_balance_type,
+                'due_amount' => $req->opening_balance_type == 'to_receive' ? (double) $req->opening_balance : 0,
+                'advance_amount' => $req->opening_balance_type == 'to_pay' ? (double) $req->opening_balance : 0,
+                'due_date' => $req->opening_balance_type == 'to_receive' && (double) $req->opening_balance > 0
+                    ? now()->addDays((int) $req->credit_period)
+                    : null,
+                'credit_period' => (int) $req->credit_period,
+                'credit_limit' => (double) $req->credit_limit ?? 0,
+                'created_by_id' => Auth::id(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::table('credit_infos')->insert([
+                'customer_id' => $customerId,
+                'opening_balance' => (double) $req->opening_balance,
+                'opening_balance_type' => $req->opening_balance_type,
+                'credit_period' => 0,
+                'credit_limit' => (double) $req->credit_limit?? 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            DB::commit();
+    
+            return redirect()->back()->with('success', 'Customer created successfully!');
+        } catch (\Throwable $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Failed to create customer!');
+        }
     }
 
     public function updateCustomer(Request $req){
@@ -98,28 +117,45 @@ class CustomerController extends Controller
             'credit_limit' =>'required|integer',
         ]);
 
-        $updatedCustomer = DB::table('customers')->where('id', $req->id)->update([
-            'first_name' => $req->first_name,
-            'last_name' => $req->last_name,
-            'email' => $req->email,
-            'mobile' => $req->mobile,
-            'whatsapp_number' => $req->whatsapp_number,
-            'address' => $req->address,
-            'opening_balance_type' => $req->opening_balance_type,
-            'due_amount' => $req->opening_balance_type == 'to_receive' ? (double) $req->opening_balance : 0,
-            'advance_amount' => $req->opening_balance_type == 'to_pay' ? (double) $req->opening_balance : 0,
-            'due_date' => $req->opening_balance_type == 'to_receive' && (double) $req->opening_balance > 0
-                ? now()->addDays((int) $req->credit_period)
-                : null,
-            'credit_period' => (int) $req->credit_period,
-            'credit_limit' => (double) $req->credit_limit ?? 0,
-            'updated_at' => now(),
-        ]);
+        try {
+            DB::transaction();
 
-        if (!$updatedCustomer) {
+            $updatedCustomer = DB::table('customers')->where('id', $req->id)->update([
+                'first_name' => $req->first_name,
+                'last_name' => $req->last_name,
+                'email' => $req->email,
+                'mobile' => $req->mobile,
+                'whatsapp_number' => $req->whatsapp_number,
+                'address' => $req->address,
+                'opening_balance_type' => $req->opening_balance_type,
+                'due_amount' => $req->opening_balance_type == 'to_receive' ? (double) $req->opening_balance : 0,
+                'advance_amount' => $req->opening_balance_type == 'to_pay' ? (double) $req->opening_balance : 0,
+                'due_date' => $req->opening_balance_type == 'to_receive' && (double) $req->opening_balance > 0
+                    ? now()->addDays((int) $req->credit_period)
+                    : null,
+                'credit_period' => (int) $req->credit_period,
+                'credit_limit' => (double) $req->credit_limit ?? 0,
+                'updated_at' => now(),
+            ]);
+    
+            $updatedCreditInfo = DB::table('credit_infos')->where('customer_id', $req->id)->update([
+                'opening_balance' => (double) $req->opening_balance,
+                'opening_balance_type' => $req->opening_balance_type,
+                'credit_period' => $req->credit_period,
+                'credit_limit' => (double) $req->credit_limit?? 0,
+                'updated_at' => now(),
+            ]);
+    
+            if (!$updatedCustomer || !$updatedCreditInfo) {
+                DB::rollback();
+                return redirect()->back()->with('error', 'Failed to update customer!');
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'Customer updated successfully!');
+        } catch (\Throwable $e) {
+            DB::rollback();
             return redirect()->back()->with('error', 'Failed to update customer!');
         }
-        return redirect()->back()->with('success', 'Customer updated successfully!');
 
     }
 

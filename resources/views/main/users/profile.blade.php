@@ -19,6 +19,27 @@
                 ['url' => '/users/profile', 'text' => 'Update Profile']
             ]" />
 
+            <!-- For success message -->
+            @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             <div class="flex">
                 <div class="border w-60 px-5 h-fit py-3 bg-white dark:bg-gray-800 rounded-lg border-gray-200 dark:border-neutral-700 shadow shrink-0">
                     <h1 class="font-semibold text-2xl mb-3">OPTIONS</h1>
@@ -40,16 +61,18 @@
                             <div class="border-b-[1.5px] border-[#dddddd] px-5 py-3">
                                 <h3 class="font-semibold text-2xl">PROFILE</h3>
                             </div>
-                            <form id="" action="#" class="space-y-6 px-5 py-3">
+                            <form action="{{ route('users.updateProfile') }}" method="POST" enctype="multipart/form-data" class="space-y-6 px-5 py-3">
+                                @csrf
+                                <input name="id" type="hidden" value="{{ Auth::id() }}" />
                                 <!-- Logo Section Start -->
                                 <p class="block text-base font-semibold mb-3 text-[#8d8d8d] dark:text-white">Profile Picture</p>
                                 <div class="flex gap-10">
-                                    <img src="/assets/users/demo_profile.png" alt="" class="border border-gray-400 rounded w-32 h-32 aspect-square object-cover object-center" />
+                                    <img src="{{ Auth::check() ? url(Auth::user()->profile_picture) : '/assets/users/demo_profile.png' }}" id="previewImage" alt="" class="border border-gray-400 rounded w-32 h-32 aspect-square object-cover object-center" />
                                     <div>
                                         <div class="flex gap-5">
                                             <div>
                                                 <label class="block">
-                                                    <input type="file" accept=".jpg,.jpeg,.gif,.png" class="block w-[90px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
+                                                    <input name="profile_image" type="file" id="imageInput" accept=".jpg,.jpeg,.gif,.png" class="block w-[110px] overflow-hidden h-10 cursor-pointer text-sm text-gray-500
                                                         file:me-4 file:py-2.5 file:px-4
                                                         file:rounded-lg file:border-0
                                                         file:text-sm file:font-semibold
@@ -74,26 +97,26 @@
                                 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
                                     <div>
                                         <label for="user-name" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">User Name</label>
-                                        <input type="text" id="user-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="text" name="username" value="{{ Auth::user()->username }}" id="user-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                     <div>
                                         <label for="first-name" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">First Name</label>
-                                        <input type="text" id="first-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="text" name="first_name" value="{{ Auth::user()->first_name }}" id="first-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                     <div>
                                         <label for="last-name" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Last Name</label>
-                                        <input type="text" id="last-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        <input type="text" name="last_name" value="{{ Auth::user()->last_name }}" id="last-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                     </div>
                                 </section>
 
                                 <section class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
                                     <div>
                                         <label for="email" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Email</label>
-                                        <input type="email" id="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="email" name="email" value="{{ Auth::user()->email }}" id="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                     <div>
                                         <label for="mobile" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Mobile</label>
-                                        <input type="number" id="mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="number" name="mobile" value="{{ Auth::user()->mobile }}" id="mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                 </section>
                                     
@@ -117,19 +140,21 @@
                             <div class="border-b-[1.5px] border-[#dddddd] px-5 py-3">
                                 <h3 class="font-semibold text-2xl">CHANGE PASSWORD</h3>
                             </div>
-                            <form id="" action="#" class="space-y-6 px-5 py-3">
+                            <form action="{{ route('users.changePassword') }}" method="POST" class="space-y-6 px-5 py-3">
+                                @csrf
+                                <input name="id" type="hidden" value="{{ Auth::id() }}" />
                                 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
                                     <div>
                                         <label for="old-password" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Old Password</label>
-                                        <input type="text" id="old-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="text" name="old_password" id="old-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                     <div>
                                         <label for="new-password" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">New Password</label>
-                                        <input type="text" id="new-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+                                        <input type="text" name="new_password" id="new-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
                                     </div>
                                     <div>
                                         <label for="confirm-password" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Confirm Password</label>
-                                        <input type="text" id="confirm-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                        <input type="text" name="confirm_password" id="confirm-password" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                                     </div>
                                 </section>
                                     
@@ -150,5 +175,30 @@
             </div>
         </section>
     @endsection
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageInput = document.getElementById('imageInput');
+            const previewImage = document.getElementById('previewImage');
+            const defaultImage = "/assets/users/demo_profile.png";
+
+            imageInput.addEventListener('change', function (event) {
+                
+                const file = event.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            window.resetImage = function () {
+                imageInput.value = '';
+                previewImage.src = defaultImage;
+            };
+        });
+    </script>
 </body>
 </html>
