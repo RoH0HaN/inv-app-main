@@ -83,4 +83,14 @@ class TaxRatesController extends Controller
         return redirect()->back()->with('success', 'Updated successfully!');
     }
 
+    public function deleteTaxToDatabase(Request $req){
+        // Fetch warehouse record
+        $tax_rates = DB::table('tax_rates')->where('id', $req->id)->first();
+        if (!$tax_rates) {
+            return redirect()->back()->with('error', 'Tax not found!');
+        }
+        DB::table('tax_rates')->where('id', $req->id)->delete();
+        return redirect()->back()->with('success', 'Tax deleted successfully!');
+    }
+
 }

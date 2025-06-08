@@ -322,12 +322,16 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
         Route::get("/create-tax", 'createTax')->name("createTax");
         Route::post("/save-tax-to-database", 'saveTaxToDatabase')->name("saveTaxToDatabase");
         Route::post("/update-tax-to-database", 'updateTaxToDatabase')->name("updateTaxToDatabase");
+        Route::delete("/delete-tax-to-database", 'deleteTaxToDatabase')->name("deleteTaxToDatabase");
     });
 
     // UNIT LIST ROUTE
     Route::controller(UnitListController::class)->group(function () {
         Route::get("/unit-list", 'index')->name("unitList");
         Route::get("/create-unit", 'createUnit')->name("createUnit");
+        Route::post("/save-unit-to-database", 'saveUnitToDatabase')->name("saveUnitToDatabase");
+        Route::post("/update-unit-to-database", 'updateUnitToDatabase')->name("updateUnitToDatabase");
+        Route::delete("/delete-unit-to-database", 'deleteUnitToDatabase')->name("deleteUnitToDatabase");
     });
 
     // TCS/TDS RATES ROUTE
