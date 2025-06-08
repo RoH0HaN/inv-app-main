@@ -338,6 +338,9 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
     Route::controller(TcsTdsRatesController::class)->group(function () {
         Route::get("/tcs-tds-rates", 'index')->name("tcsTdsRates");
         Route::get("/create-tcs-tds", 'createTcsTds')->name("createTcsTds");
+        Route::post("/save-tcs-tds-to-database", 'saveTcsTdsToDatabase')->name("saveTcsTdsToDatabase");
+        Route::post("/update-tcs-tds-to-database", 'updateTcsTdsToDatabase')->name("updateTcsTdsToDatabase");
+        Route::delete("/delete-tcs-tds-to-database", 'deleteTcsTdsToDatabase')->name("deleteTcsTdsToDatabase");
     });
 
     // PAYMENT OPTIONS ROUTE
