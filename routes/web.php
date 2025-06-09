@@ -287,6 +287,8 @@ Route::prefix('users')->name('users.')->middleware(VerifyLogin::class)->group(fu
         Route::get('/employee-list', 'index')->name('employeeList');
         Route::get('/create-employee', 'createEmployee')->name('createEmployee');
         Route::post('/save-employee-to-database', 'saveEmployeeToDatabase')->name('saveEmployeeToDatabase');
+        Route::post("/update-employee-to-database", 'updateEmployeeToDatabase')->name("updateEmployeeToDatabase");
+        Route::delete("/delete-employee-to-database", 'deleteEmployeeToDatabase')->name("deleteEmployeeToDatabase");
     });
 
 });
@@ -357,6 +359,12 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
         Route::get("/finances-list", 'index')->name("financesList");
         Route::get("/create-finance", 'createFinance')->name("createFinance");
         Route::get("/finance-details-page", 'viewFinanceDetails')->name("financeDetailsPage");
+
+        // TODO: These routes is not completed. need to be complete
+
+        Route::post("/save-finance-to-database", 'saveFinanceToDatabase')->name("saveFinanceToDatabase");
+        Route::post("/update-finance-to-database", 'updateFinanceToDatabase')->name("updateFinanceToDatabase");
+        Route::delete("/delete-finance-to-database", 'deleteFinanceToDatabase')->name("deleteFinanceToDatabase");
     });
 
 });

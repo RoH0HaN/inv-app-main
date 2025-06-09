@@ -1,3 +1,6 @@
+@props(['outlets' => []])
+
+
 <div id="edit-employee-dialog" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none" role="dialog" tabindex="-1" aria-labelledby="edit-employee-dialog-label">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-xl sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
     <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70 w-full">
@@ -14,57 +17,55 @@
         </button>
       </div>
 
-      <form class="p-4 space-y-3">
+      <form class="p-4 space-y-3" action="{{ route('users.updateEmployeeToDatabase') }}" method="POST">
+        @csrf
+
+        <input name="id" id="edit-id" type="hidden" />
+
         <!-- First Name & Last Name -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">First Name</label>
-            <input type="text" name="first_name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+            <input type="text" name="first_name" id="edit-first-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Last Name</label>
-            <input type="text" name="last_name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="text" name="last_name" id="edit-last-name" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 
         <!-- Email -->
         <div>
           <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Email</label>
-          <input type="email" name="email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+          <input type="email" name="email" id="edit-email" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
         </div>
 
         <!-- Address -->
         <div>
           <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Address</label>
-          <textarea name="address" rows="3" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"></textarea>
+          <textarea name="address" id="edit-address" rows="3" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"></textarea>
         </div>
 
         <!-- Mobile & WhatsApp -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Mobile Number</label>
-            <input type="tel" name="mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
+            <input type="tel" name="mobile" id="edit-mobile" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" required>
           </div>
           <div>
             <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">WhatsApp Number</label>
-            <input type="tel" name="whatsapp_number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+            <input type="tel" name="whatsapp_number" id="edit-whatsapp-number" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
           </div>
         </div>
 
-        <!-- Operatable Outlet Radio Buttons -->
-        <div>
-          <label class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Operatable Outlet</label>
-          <div class="grid sm:grid-cols-2 gap-2 h-fit">
-            <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-              <input type="radio" name="outlet" value="outlet_1" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-              <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">Outlet 1</span>
-            </label>
-
-            <label class="flex p-3 w-full bg-white border border-gray-400 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-              <input type="radio" name="outlet" value="outlet_2" class="shrink-0 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 checked:border-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-              <span class="text-sm text-gray-800 font-bold ms-3 dark:text-neutral-400">Outlet 2</span>
-            </label>
-          </div>
+         <!-- Get The Outlets From Database Start -->
+        <div class="col-span-3">
+            <label for="outlet-select" class="block text-base font-semibold mb-2 text-[#8d8d8d] dark:text-white">Select outlet</label>
+            <select id="edit-outlet-id" name="outlet_id" class="py-2.5 sm:py-3 px-4 block w-full border border-gray-400 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+              @foreach($outlets as $outlet)
+                  <option value="{{ $outlet->id }}">{{ $outlet->organization_name }}</option>
+              @endforeach
+            </select>
         </div>
 
         <!-- Form Actions -->
