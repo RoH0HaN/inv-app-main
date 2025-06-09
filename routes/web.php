@@ -347,6 +347,9 @@ Route::prefix("settings")->name("settings.")->middleware(VerifyLogin::class)->gr
     Route::controller(PaymentOptionController::class)->group(function () {
         Route::get("/payment-options", 'index')->name("paymentOptions");
         Route::get("/create-payment-option", 'createPaymentOption')->name("createPaymentOption");
+        Route::post("/save-payment-option-to-database", 'savePaymentOptionToDatabase')->name("savePaymentOptionToDatabase");
+        Route::post("/update-payment-option-to-database", 'updatePaymentOptionToDatabase')->name("updatePaymentOptionToDatabase");
+        Route::delete("/delete-payment-option-to-database", 'deletePaymentOptionToDatabase')->name("deletePaymentOptionToDatabase");
     });
 
     // FINANCES LIST ROUTE
