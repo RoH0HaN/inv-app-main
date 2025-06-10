@@ -165,13 +165,18 @@ Route::prefix("items")->name("items.")->middleware(VerifyLogin::class)->group(fu
     Route::controller(CategoryListController::class)->group(function () {
         Route::get("/category-list", 'index')->name("categoryList");
         Route::get("/create-category", 'createCategory')->name("createCategory");
-        Route::post("/save-category-to-database", 'saveCategoryToDatabase')->name('items.saveCategoryToDatabase');
+        Route::post("/save-category-to-database", 'saveCategoryToDatabase')->name('saveCategoryToDatabase');
+        Route::post("/update-category-to-database", 'updateCategoryToDatabase')->name("updateCategoryToDatabase");
+        Route::delete("/delete-category-to-database", 'deleteCategoryToDatabase')->name("deleteCategoryToDatabase");
     });
     
     // ITEMS => BRAND LIST ROUTE
     Route::controller(BrandListController::class)->group(function () {
         Route::get("/brand-list", 'index')->name("brandList");
         Route::get("/create-brand", 'createBrand')->name("createBrand");
+        Route::post("/save-brand-to-database", 'saveBrandToDatabase')->name('saveBrandToDatabase');
+        Route::post("/update-brand-to-database", 'updateBrandToDatabase')->name("updateBrandToDatabase");
+        Route::delete("/delete-brand-to-database", 'deleteBrandToDatabase')->name("deleteBrandToDatabase");
     });
 
 });
