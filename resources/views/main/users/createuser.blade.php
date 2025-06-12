@@ -19,6 +19,14 @@
                 ['url' => route('users.usersList'), 'text' => 'Users List'],
                 ['url' => route('users.createUser'), 'text' => 'Create User']
             ]" />
+
+            <!-- For error message -->
+            @if (session('error'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-red-800 bg-red-100 border border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-700">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <!-- For success message -->
             @if (session('success'))
                 <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">

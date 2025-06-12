@@ -37,14 +37,17 @@ class OutletListController extends Controller
     }
 
     public function saveOutletToDatabase(Request $req) {
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // validating the data
         $req->validate([
             'organization_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'organization_name' => 'required',
-            'mobile' =>'required|unique:warehouses,mobile|numeric|digits:10',
-            'alternative_mobile' =>'required|unique:warehouses,mobile|numeric|digits:10',
-            'email' =>'required|unique:warehouses,email',
-            'tax_number' =>'required|unique:warehouses,tax_number',
+            'mobile' =>'required|unique:outlets,mobile|numeric|digits:10',
+            'alternative_mobile' =>'required|unique:outlets,mobile|numeric|digits:10',
+            'email' =>'required|unique:outlets,email',
+            'tax_number' =>'required|unique:outlets,tax_number',
             'address' =>'required',
             'warehouse_id' =>'required|exists:warehouses,id',
             'invoice_prefix_gst' =>'required',
@@ -89,6 +92,9 @@ class OutletListController extends Controller
     }
 
     public function updateOutlet(Request $req){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // Fetch warehouse record
         $outlet = DB::table('outlets')->where('id', $req->id)->first();
         if (!$outlet) {
@@ -99,10 +105,10 @@ class OutletListController extends Controller
         $req->validate([
             'organization_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'organization_name' => 'required',
-            'mobile' => 'required|numeric|digits:10|unique:warehouses,mobile,' . $req->id,
-            'alternative_mobile' => 'required|numeric|digits:10|unique:warehouses,alternative_mobile,' . $req->id,
-            'email' => 'required|email|unique:warehouses,email,' . $req->id,
-            'tax_number' => 'required|unique:warehouses,tax_number,' . $req->id,
+            'mobile' => 'required|numeric|digits:10|unique:outlets,mobile,' . $req->id,
+            'alternative_mobile' => 'required|numeric|digits:10|unique:outlets,alternative_mobile,' . $req->id,
+            'email' => 'required|email|unique:outlets,email,' . $req->id,
+            'tax_number' => 'required|unique:outlets,tax_number,' . $req->id,
             'address' => 'required',
             'warehouse_id' => 'required|exists:warehouses,id',
             'invoice_prefix_gst' => 'required',
@@ -153,6 +159,9 @@ class OutletListController extends Controller
     }
 
     public function deleteOutlet(Request $request){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         $id = $request->id;
 
         $outlet = DB::table('outlets')->where('id', $id)->first();

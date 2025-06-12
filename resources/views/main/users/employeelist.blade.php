@@ -57,6 +57,20 @@
                 </div>
                 <div class="px-5 py-5">
                     <div class="table-container">
+
+                    <div class="flex justify-end items-center space-x-4 mb-4">
+                            <!-- Buttons -->
+                            <x-export-controls />
+
+                            <!-- Search -->
+                            <div class="flex items-center space-x-2">
+                                <form method="GET" action="{{ route('users.employeeList') }}">
+                                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search employees..." class="px-3 py-2 border rounded-md">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">Search</button>
+                                </form>
+                            </div>
+                        </div>
+
                         <table id="myTable" class="custom-data-table">
                             <thead>
                                 <tr>
@@ -121,6 +135,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <!-- Pagination Links (Preserve search param) -->
+                        {{ $employees->appends(['search' => request('search')])->links() }}
                     </div>
                 </div>
             </div>

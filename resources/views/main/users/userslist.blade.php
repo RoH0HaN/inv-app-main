@@ -57,7 +57,7 @@
                 <div class="px-5 py-5">
                     <div class="table-container">
 
-                    <div class="flex justify-end items-center space-x-4 mb-4">
+                        <div class="flex justify-end items-center space-x-4 mb-4">
                             <!-- Buttons -->
                             <x-export-controls />
 
@@ -92,7 +92,7 @@
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->mobile }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td class="uppercase">{{ $user->role }}</td>
+                                    <td class="uppercase">{{ $user->role }}<br/><span class="font-bold text-green-600">{{ $user->entity_name }}</span></td>
                                     <td><span class="uppercase">{{ $user->status }}</span></td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\main\users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -42,16 +43,22 @@ class AllUsersController extends Controller
     }
 
     public function saveUserToDatabase(Request $req) {
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // Extract warehouse_id or outlet_id from location_id
         $warehouse_id = null;
         $outlet_id = null;
+        $entity_name = null;
     
         if ($req->role === 'user' && $req->has('location_id')) {
             [$type, $id] = explode('_', $req->location_id);
             if ($type === 'warehouse') {
                 $warehouse_id = $id;
+                $entity_name = 'warehouse';
             } elseif ($type === 'outlet') {
                 $outlet_id = $id;
+                $entity_name = 'outlet';
             }
         }
     
@@ -109,6 +116,7 @@ class AllUsersController extends Controller
             'profile_picture' => $imagePath,
             'warehouse_id' => $warehouse_id,
             'outlet_id' => $outlet_id,
+            'entity_name' => $entity_name,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -117,6 +125,9 @@ class AllUsersController extends Controller
     }
 
     public function updateUser(Request $req){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         $userId = $req->input('id');
         $user = DB::table('users')->where('id', $userId)->first();
 
@@ -127,13 +138,16 @@ class AllUsersController extends Controller
         // Extract location
         $warehouse_id = null;
         $outlet_id = null;
+        $entity_name = null;
 
         if ($req->role === 'user' && $req->has('location_id')) {
             [$type, $id] = explode('_', $req->location_id);
             if ($type === 'warehouse') {
                 $warehouse_id = $id;
+                $entity_name = 'warehouse';
             } elseif ($type === 'outlet') {
                 $outlet_id = $id;
+                $entity_name = 'outlet';
             }
         }
 
@@ -201,6 +215,7 @@ class AllUsersController extends Controller
             'profile_picture' => $imagePath,
             'warehouse_id' => $warehouse_id,
             'outlet_id' => $outlet_id,
+            'entity_name' => $entity_name,
             'updated_at' => now()
         ]);
 
@@ -209,6 +224,9 @@ class AllUsersController extends Controller
 
 
     public function deleteUser(Request $req){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // Fetch warehouse record
         $user = DB::table('users')->where('id', $req->id)->first();
         if (!$user) {

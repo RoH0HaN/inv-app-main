@@ -34,6 +34,9 @@ class WarehouseListController extends Controller
     }
 
     public function saveWarehouseToDatabase(Request $req) {
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // validating the data
         $req->validate([
             'organization_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -77,6 +80,9 @@ class WarehouseListController extends Controller
 
     
     public function updateWarehouse(Request $req){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         // Fetch warehouse record
         $warehouse = DB::table('warehouses')->where('id', $req->id)->first();
         if (!$warehouse) {
@@ -130,6 +136,9 @@ class WarehouseListController extends Controller
 
 
     public function deleteWarehouse(Request $request){
+        if(Auth::user()->role !== 'admin'){
+            return redirect()->back()->with('error', 'You do not have permission to do that action.');
+        }
         $id = $request->id;
 
         $warehouse = DB::table('warehouses')->where('id', $id)->first();

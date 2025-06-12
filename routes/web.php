@@ -249,6 +249,9 @@ Route::prefix("expenses")->name("expenses.")->middleware(VerifyLogin::class)->gr
     Route::controller(ExpenseTypeController::class)->group(function () {
         Route::get("/expense-type", "index")->name("expenseType");
         Route::get("/create-expense-type", "createExpenseType")->name("createExpenseType");
+        Route::post("/save-expense-type-to-database", "saveExpenseTypeToDatabase")->name("saveExpenseTypeToDatabase");
+        Route::post("/update-expense-type", "updateExpenseType")->name("updateExpenseType");
+        Route::delete("/delete-expense-type", "deleteExpenseType")->name("deleteExpenseType");
     });
 });
 
@@ -264,6 +267,11 @@ Route::prefix("cash-bank")->name("cash-bank.")->middleware(VerifyLogin::class)->
        Route::get("/banks", "index")->name("banks");
        Route::get("/add-bank-account", "addBankAccount")->name("addBankAccount");
        Route::get("/account-details", "viewAccountDetails")->name("accountDetails");
+
+       Route::post("/save-bank-account-to-database", "saveBankAccountToDatabase")->name("saveBankAccountToDatabase");
+       Route::post("/update-bank-account", "updateBankAccount")->name("updateBankAccount");
+       Route::post("/adjust-bank-account", "adjustBankAccount")->name("adjustBankAccount");
+       Route::delete("/delete-bank-account", "deleteBankAccount")->name("deleteBankAccount");
    });
 });
 

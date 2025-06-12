@@ -21,8 +21,29 @@
                 ['url' => route('dashboard'), 'text' => 'Home'],
                 ['url' => '#', 'text' => 'Contacts'],
                 ['url' => route('contacts.suppliers'), 'text' => 'Suppliers List'],
-                ['url' => route(contacts.supplierPayment, 'text' => 'Supplier Payment']
+                ['url' => route('contacts.supplierPayment'), 'text' => 'Supplier Payment']
             ]" />
+
+             <!-- For success message -->
+             @if (session('success'))
+                <div class="mt-4 mb-4 p-4 rounded-lg text-sm text-green-800 bg-green-100 border border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <!-- For error message -->
+            @if ($errors->any())
+                <div class="mt-4 mb-4">
+                    <div class="bg-red-50 border border-red-200 text-red-800 text-sm rounded-lg p-4 dark:bg-red-900 dark:border-red-800 dark:text-red-200">
+                        <h2 class="font-semibold mb-2">There were some problems with your input:</h2>
+                        <ul class="list-disc list-inside space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
             <div class="shadow-md rounded-lg bg-[#fff] dark:bg-gray-800">
                 <div class="flex justify-between border-b-[1.5px] border-[#dddddd] px-5 py-3">
